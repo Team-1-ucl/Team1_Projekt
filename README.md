@@ -4,3 +4,8 @@
 
 
 [Projekt_beskrivelse.md](https://github.com/Team-1-ucl/Team1_Projekt/blob/main/Projekt_Beskrivelse.md)
+
+
+videoer:
+[Begynder rally](https://www.youtube.com/watch?v=WIaDdafw8To)
+[Expert Class](https://www.youtube.com/watch?v=wb1boHfSWgw)
