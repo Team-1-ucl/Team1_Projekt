@@ -69,6 +69,7 @@ Regler for brug af skilte (fra reglementet) er angivet i højre side.
 Når vi som instruktører skal dele baner med hinanden, foregår det i en facebookgruppe, hvor nogle lægger sine baner op enten som billeder eller powerpoints. 
 Hvis man har kommentarer eller spørgsmål til en bane, skriver man dem i kommentarerne.
 Udfordringerne er, at det er en lidt tung og besværlig måde både at lave og dele banerne. 
+
 Det er også svært at finde baner, hvis man leder efter fx en bane på et bestemt niveau eller med et bestemt tema.
 Nogle af de ønsker, vi har som rally instruktører er, at vi får nemmere ved at lave og dele baner.
 Først og fremmest ønsker vi en bedre måde at dele og kommunikere sammen om banerne, samt at vi kan lave banerne i et værktøj, der er beregnet til det.
@@ -83,6 +84,11 @@ Det skal gerne være lige som på google docs, hvor man selv kan bestemme hvem/h
 
 Der er masser af andre ønsker til en sådan ny rally lydigheds platform – så i løbet af semesteret vil jeg opdatere beskrivelsen, 
 afhængigt af hvor langt I når og I hvilke retninger I går.
+
+## Opsummering af Ønsker
+- de ønsker et system der kan holde styr på at banerne overholder reglerne for den type bane
+- de ønsker et system der kan selv kan sætte skiltenumre lave pile og udfylde skilteoversigten
+- de ønsker en chat, hvor man kan skrive sammen. Denne skal gerne være lige som på google docs, hvor man selv kan bestemme hvem/hvor mange man vil dele sin bane med og hvilke rettigheder de skal have.
 
 
 **Product owner: Lene** (som repræsentant for rallyinstruktører)
