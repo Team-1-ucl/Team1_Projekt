@@ -86,8 +86,8 @@ Der er masser af andre ønsker til en sådan ny rally lydigheds platform – så
 afhængigt af hvor langt I når og I hvilke retninger I går.
 
 ## Opsummering af Ønsker
-- de ønsker et system der kan holde styr på at banerne overholder reglerne for den type bane
-- de ønsker et system der kan selv kan sætte skiltenumre lave pile og udfylde skilteoversigten
+- de ønsker et system der kan holde styr på at banerne overholder reglerne for den type bane.
+- de ønsker et system der kan selv kan sætte skiltenumre lave pile og udfylde skilteoversigten.
 - de ønsker en chat, hvor man kan skrive sammen. Denne skal gerne være lige som på google docs, hvor man selv kan bestemme hvem/hvor mange man vil dele sin bane med og hvilke rettigheder de skal have.
 
 
