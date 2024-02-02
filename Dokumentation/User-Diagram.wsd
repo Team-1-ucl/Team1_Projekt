@@ -1,4 +1,4 @@
-@startuml
+@startuml UseCase Diagram
 skinparam actorStyle awesome
 left to right direction
 actor lene as lene
