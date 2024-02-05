@@ -6,23 +6,14 @@ rectangle use_cases{
     usecase "Tilgår system" as UC1
     usecase "Opret bruger" as UC2
     usecase "Logger ind" as UC3
-    usecase "Opretter Begynder Bane" as UC4  
-    usecase "Opretter Øvet Bane" as UC5  
-    usecase "Opretter Ekspert Bane" as UC6  
-    usecase "Opretter Champion Bane" as UC7  
-    usecase "Sletter Eksisterende Bane" as UC8  
+    usecase "Opretter bane" as UC4  
     usecase "Deler bane" as UC9  
-    
     usecase "Logger Ud" as UC10  
 }
 lene --> UC1
 lene --> UC2
 lene --> UC3
 lene --> UC4
-lene --> UC5
-lene --> UC6
-lene --> UC7
-lene --> UC8
 lene --> UC9
 lene --> UC10
 
