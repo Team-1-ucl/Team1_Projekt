@@ -3,19 +3,19 @@ skinparam actorStyle awesome
 left to right direction
 actor lene as lene
 rectangle use_cases{
-    usecase "Tilgår system" as UC1
+    usecase "Tilgår system" as UC1 
     usecase "Opret bruger" as UC2
     usecase "Logger ind" as UC3
     usecase "Opretter bane" as UC4  
-    usecase "Deler bane" as UC9  
-    usecase "Logger Ud" as UC10  
+    usecase "Deler bane" as UC5  
+    usecase "Logger Ud" as UC6  
 }
 lene --> UC1
 lene --> UC2
 lene --> UC3
 lene --> UC4
-lene --> UC9
-lene --> UC10
+lene --> UC5
+lene --> UC6
 
 @enduml
 
