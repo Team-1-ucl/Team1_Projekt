@@ -1,0 +1,16 @@
+@startuml
+title Dele bane\n SSD
+skinparam style strictuml
+actor Lene
+Lene -> System: Tilgår System
+System --> Lene: Viser inputside
+loop until user ends
+Lene ->System: Vælg bane
+System --> Lene:Valgt bane
+Lene -> System: Vælg bruger
+System --> Lene: Valgt bruger
+end
+Lene -> System:Del
+System --> Lene: Bekræftelse
+
+@enduml
