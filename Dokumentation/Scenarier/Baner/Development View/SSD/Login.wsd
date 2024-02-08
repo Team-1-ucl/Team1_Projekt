@@ -2,7 +2,7 @@
 title Login /n SSD
 skinparam style strictuml
 actor lene as lene
-participant system as sys
+participant system as system
 lene --> system: tilgår system
 lene <-- system: viser login/opret muligheder
 lene --> system: trykker på login
