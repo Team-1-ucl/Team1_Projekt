@@ -11,6 +11,7 @@ lene -> sys : Opretter bane
 lene <-- sys : Viser "Opret Bane" inputside
 loop until user ends
 lene -> sys : Placerer skilte element
+sys->sys:Registrer placering
 end
 lene -> sys : Afslutter opret bane 
 lene <-- sys : bekræftelses besked
