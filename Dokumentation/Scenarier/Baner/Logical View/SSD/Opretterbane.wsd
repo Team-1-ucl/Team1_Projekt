@@ -1,19 +1,19 @@
 @startuml Opretter Bane
 title Opret bane \n SSD 
 skinparam style strictuml
-actor lene as lene
-participant system as sys
+actor Bruger
+participant System as sys
 
-lene -> sys : Tilgår system
-lene <-- sys : Viser inputside
-lene -> sys : Vælger type af bane
-lene -> sys : Opretter bane
-lene <-- sys : Viser "Opret Bane" inputside
-loop until user ends
-lene -> sys : Placerer skilte element
+Bruger-> sys : Tilgår system
+Bruger <-- sys : Viser inputside
+Bruger -> sys : Vælger type af bane
+Bruger -> sys : Opretter bane
+Bruger <-- sys : Viser "Opret Bane" inputside
+loop indtil bruger afslutter
+Bruger -> sys : Placerer skilte element
 sys->sys:Registrer placering
 end
-lene -> sys : Afslutter opret bane 
-lene <-- sys : bekræftelses besked
+Bruger -> sys : Afslutter opret bane 
+Bruger <-- sys : bekræftelses besked
 
 @enduml
