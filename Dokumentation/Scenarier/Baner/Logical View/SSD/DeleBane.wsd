@@ -1,4 +1,4 @@
-@startuml
+@startuml Dele Bane
 title Dele bane\n SSD
 skinparam style strictuml
 actor Bruger
