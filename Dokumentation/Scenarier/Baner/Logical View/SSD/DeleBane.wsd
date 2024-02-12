@@ -1,20 +1,20 @@
 @startuml
 title Dele bane\n SSD
 skinparam style strictuml
-actor Lene
-Lene -> System: Tilgår System
-System --> Lene: Viser inputside(Bane)
-loop until user ends
-Lene ->System: Vælg bane
+actor Bruger
+Bruger -> System: Tilgår System
+System --> Bruger: Viser inputside(Bane)
+loop indtil bruger afslutter
+Bruger ->System: Vælg bane
 System->System:Registrer valg
 end
-System-->Lene:Liste af valgte baner
-loop until user ends
-Lene -> System: Vælg bruger
+System-->Bruger:Liste af valgte baner
+loop indtil bruger afslutter 
+Bruger -> System: Vælg bruger
 System->System:Registrer valg
 end
-System-->Lene:Oversigt over valg
-Lene -> System:Del
-System --> Lene: Bekræftelse
+System-->Bruger:Oversigt over valg
+Bruger -> System:Del
+System --> Bruger: Bekræftelse
 
 @enduml
