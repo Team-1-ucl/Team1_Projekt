@@ -6,11 +6,11 @@ participant System as sys
 
 Bruger-> sys : Tilgår system
 Bruger <-- sys : Viser inputside
-Bruger -> sys : Vælger type af bane
+Bruger -> sys : Vælger banens sværhedsgrad
 Bruger -> sys : Opretter bane
 Bruger <-- sys : Viser "Opret Bane" inputside
 loop indtil bruger afslutter
-Bruger -> sys : Placerer skilte element
+Bruger -> sys : Placerer skilte, pile og øvrige elementer
 sys->sys:Registrer placering
 end
 Bruger -> sys : Afslutter opret bane 
