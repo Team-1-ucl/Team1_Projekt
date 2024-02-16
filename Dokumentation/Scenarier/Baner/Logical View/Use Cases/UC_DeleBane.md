@@ -1,7 +1,7 @@
 
 # Dele bane. (Brief)
 Lene tilgår systemet og vælger oprettede baner. 
-Lene vælger en eller flere bane hun vil dele, herefter vælger Lene en eller
+Lene vælger en hun vil dele, herefter vælger Lene en eller
 flere registrerede bruger i systemet og deler banen. 
 
 # Dele baner. (Casual)
