@@ -12,94 +12,99 @@ skinparam rectangle {
   BackgroundColor lightGrey
   
 }
-rectangle Baner{
-    object Bane1{
-        Længde = 18
-        Brede = 25
+rectangle Bane{
+    map "**Bane1**" as B1{
+        Længde => 18
+        Brede => 25
     }
 }
 rectangle Sværhedsgrad {
-    object sværhedsgrad1{
-        Åben
+    map "**Sværhedsgrad1**" as S1{
+        Tekst => Begynder
+    }
+    map "**Sværhedsgrad2**" as S2{
+        Tekst => Øvet
+    }
+    map "**Sværhedsgrad3**" as S3{
+        Tekst => Ekspert
+    }
+    map "**Sværhedsgrad4**" as S4{
+        Tekst => Champion
+    }
+    map "**Sværhedsgrad5**" as S5{
+        Tekst => Åben
     }
 }
 
-rectangle BaneElementer{
-    object Element1{
-        Billede tal = 1
-        Rækkefølge tal = 0
-        tekst = start 
-        Billede
-        Placering = Der
-        Niveau = Start
-    }
+rectangle Øvrige_Elementer{
 
-    object Element2{
-        Billede tal = 301
-        Rækkefølge tal = 1
-        Text = 90 Venstre sideskift om kegle
-        Billede
-        Placering = Der
-        Niveau = Champion
+    map "**Ø_Element1**" as Ø1{
+        Type => Spand
     }
-    object Element3{
-        Billede tal = 30
-        Rækkefølge tal = 2
-        text = 8 tal
-        Billede
-        Placering = Der
-        Niveau = Begynder
+    map "**Ø_Element2**" as Ø2{
+        Type => kegle
     }
-    map "**Element4**" as E4 {
-        Billede tal => 225
-        Rækkefølge tal => 3
-        Tekst => Sideskift bagved
-        Billede =>
-        Placering => Der
-        Niveau => Øvet
-    }
-
+    
 }
 
 rectangle Pile{
 
-    object Pil1{
-        Retning = Højre mod venstre
-        Højreposition = Nej
-        Længde = 5m
-        Placering = Der
-        Billede
-    }
-    object Pil2{
-        Retning = Top til bund
-        Højreposition = Ja
-        Længde = 5m
-        Placering = Der
-        Billede
-    }
-    object Pil3{
-        Retning = Top til Bund
-        Højreposition = Ja
-        Længde = 1,5 m
-        Placering = Der
-        Billede
+    map "**Pil1**" as Pil1{
+        Retning => Højre mod venstre
+        Højreposition => Nej
+        Længde => 5m
+        Billede =>  Jeps
     }
 }
-rectangle Øvrige_Elementer{
-    object kegle{
-        Billede
-        Placering
-    }
+
+rectangle Skilt{
+    map "**Skilt**" as Skilt1{
+            Nummer => 3
+            Tekst =>højre sving
+            Billede =>  Jeps
+        }
 }
-Baner -- Pile
-Baner -- BaneElementer
-Baner -- Øvrige_Elementer
-BaneElementer -- Sværhedsgrad
-Element1 -- Pil1
-Element2 -- Pil1
-Element2 -- kegle
-Element2 -- Pil2
-Element3 -- Pil2 
-Element3 -- Pil3
-E4 -- Pil3
+rectangle Dato{
+    map "**Dato1**" as Dato1{
+            Dato => 20-05-2025
+        }
+}
+
+rectangle Bane{
+    map "**Bane1**" as Bane1{
+            Navn => Lenes Bane
+            Højde => 18 m
+            Bredde => 25 m
+        }
+}
+rectangle Placering{
+    map "**Placering1**" as Placering1{
+            x => 5
+            y => 10
+        }
+        map "**Placering2**" as Placering2{
+            x => 25
+            y => 11
+        }
+}
+rectangle Rækkefølge{
+    map "**Rækkefølge1**" as Rækkefølge1{
+            Nummer => 1
+        }
+    map "**Rækkefølge2**" as Rækkefølge2{
+            Nummer => 2
+        }
+    map "**Rækkefølge3**" as Rækkefølge3{
+            Nummer => 3
+        }
+}
+
+Rækkefølge1 -- Skilt1
+Skilt1 -- Placering1
+Skilt1 -- Bane1
+Bane1 -- Dato1
+Bane1 -- Pil1
+Pil1 -- Placering2
+Bane1 -- Ø1
+S1 -- Bane1
 @enduml
