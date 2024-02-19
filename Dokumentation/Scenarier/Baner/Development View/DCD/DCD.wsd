@@ -115,7 +115,8 @@ rectangle Controller_layer{
 }
 rectangle View{
     class "Views"{
-        
+
+
     }
 }
 
@@ -132,9 +133,6 @@ SignModelConnection . SignRepo
 RallyModelConnection . RallyRepo
 RallyRepoConnection . Rally
 
-' Rally <|-- RallyRepo
-' Sign <|-- SignRepo
-' Extra <|-- ExtraRepo
 
 Rally .. Level
 Rally --|>  Date
