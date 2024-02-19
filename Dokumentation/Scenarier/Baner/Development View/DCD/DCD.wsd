@@ -26,6 +26,9 @@ rectangle Model_layer {
         }
         class "ExtraRepo"{
         }
+        class "CategoryRepo"{
+            
+        }
         class "DbContext"{
             --Properties--
             + Rally : DbSet<Rally>
@@ -38,11 +41,15 @@ rectangle Model_layer {
         circle "Model Connection" as ExtraModelConnection{}
         circle "Model Connection" as RallyModelConnection{}
         circle "Model Connection" as SignModelConnection{}
+        circle "Model Connection" as CategoryModelConnection{}
+ 
     }
     rectangle Domain {
         circle "Repo Connection" as ExtraRepoConnection{}
         circle "Repo Connection" as RallyRepoConnection{}
         circle "Repo Connection" as SignRepoConnection{}
+        circle "Repo Connection" as CategoryRepoConnection{}
+        
         class "Rally"{
             --Properties--
             + Name : string
@@ -56,14 +63,7 @@ rectangle Model_layer {
             + Rally(Name, Height, Width, Level, ItemList, Date)
 
         }
-        class "Arrow" {
-            --Properties--
-            + Direction : string
-            + Length : float
-            + Placement : Placement 
-            + Start : Placement
-            + End : Placement
-        }
+        
         class "Sign"{
             --Properties--
             + Number : int
@@ -74,14 +74,12 @@ rectangle Model_layer {
         class "Extra"{
             --Properties--
             + Name : string
+            + Description : string
             + Image : string
             + Placement : Placement
         }
-        enum "Level"{
-            Open
-            Beginner
-            Expert
-            Champion
+        class "Category"{
+            + CategoryName : string
         }
         class "Date"{
             --Properties--
@@ -89,10 +87,16 @@ rectangle Model_layer {
         }
         class "ItemList"{
             --Properties--
+            + Items : IItems
             + Number : int
             + Sign : Sign
             + Extra : Extra
-            + Arrow : Arrow
+        }
+        interface IItem{
+            - Number : int
+            - Description : string
+            - Image : string
+            - Placement : Placement
         }
         class "Placement"{
             --Properties--
@@ -115,12 +119,10 @@ rectangle Controller_layer{
 }
 rectangle View{
     class "Views"{
-
-
     }
 }
 
-
+CategoryRepo --> GenericRepository
 RallyRepo --> GenericRepository
 ExtraRepo --> GenericRepository
 SignRepo --> GenericRepository
@@ -132,17 +134,18 @@ SignRepoConnection .. Sign
 SignModelConnection . SignRepo
 RallyModelConnection . RallyRepo
 RallyRepoConnection . Rally
+CategoryRepoConnection . Category
+CategoryModelConnection . CategoryRepo
 
 
-Rally .. Level
+Rally -- Category
 Rally --|>  Date
 Rally --|> ItemList
-ItemList --|> Sign
-ItemList --|> Arrow 
-ItemList --|> Extra
+ItemList --|> IItem
+IItem <-- Sign
+IItem <-- Extra
 Sign  --|> Placement
-Sign .. Level
-Arrow  --|>  Placement
+Sign -- Category
 Extra  --|> Placement
 
 @enduml
