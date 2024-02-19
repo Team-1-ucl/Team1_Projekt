@@ -1,0 +1,148 @@
+@startuml DCD
+rectangle Model_layer {
+    rectangle Repositories{  
+        note top of GenericRepository : Creating a Generic Repo reduces redundancy
+        class "GenericRepository"{
+            --Methods--
+            + Get(): IReadOnlyList<T>
+            + GetById(int id) <T>
+            + Create(T entity) : void
+            + Update(T entity) : void
+            + Delete(T entity) : void
+        }
+        note top of IGenericRepository : interface is used for loose coupling
+        interface "IGenericRepository"{
+            --Methods--
+            + Get(): IReadOnlyList<T>
+            + GetById(int id) <T>
+            + Create(T entity) : void
+            + Update(T entity) : void
+            + Delete(T entity) : void
+        }
+        note top of RallyRepo : rally, sign and extra repo \n inherits from Generic Repository
+        class "RallyRepo"{
+        }
+        class "SignRepo"{
+        }
+        class "ExtraRepo"{
+        }
+        class "DbContext"{
+            --Properties--
+            + Rally : DbSet<Rally>
+            + Sign : DbSet<Sign>
+            + Extra : DbSet<Extra>
+            --Methods--
+            + OnConfiguring(DbContextOptionbuilder optionsBuilder)
+            + OnModelCreating(ModelBuilder modelbuilder)
+        }
+        circle "Model Connection" as ExtraModelConnection{}
+        circle "Model Connection" as RallyModelConnection{}
+        circle "Model Connection" as SignModelConnection{}
+    }
+    rectangle Domain {
+        circle "Repo Connection" as ExtraRepoConnection{}
+        circle "Repo Connection" as RallyRepoConnection{}
+        circle "Repo Connection" as SignRepoConnection{}
+        class "Rally"{
+            --Properties--
+            + Name : string
+            + Height : int
+            + Width : int
+            + ItemList : ItemList
+            + Date : date
+            + Level : Level
+            --Constructor--
+            + Rally()
+            + Rally(Name, Height, Width, Level, ItemList, Date)
+
+        }
+        class "Arrow" {
+            --Properties--
+            + Direction : string
+            + Length : float
+            + Placement : Placement 
+            + Start : Placement
+            + End : Placement
+        }
+        class "Sign"{
+            --Properties--
+            + Number : int
+            + Description : string
+            + Image : string
+            + Placement : Placement
+        }
+        class "Extra"{
+            --Properties--
+            + Name : string
+            + Image : string
+            + Placement : Placement
+        }
+        enum "Level"{
+            Open
+            Beginner
+            Expert
+            Champion
+        }
+        class "Date"{
+            --Properties--
+            + Date : DateTime
+        }
+        class "ItemList"{
+            --Properties--
+            + Number : int
+            + Sign : Sign
+            + Extra : Extra
+            + Arrow : Arrow
+        }
+        class "Placement"{
+            --Properties--
+            + X_Koordinat
+            + Y_Koordinat
+        }
+        
+    }
+
+    
+}
+rectangle Controller_layer{
+    Class RallyController{
+        + CreateRally (Name : string, Height : int, Width : int, level : enum, ItemList : itemList, Date : DateTime)
+        + ReadRally (Name : string)
+        + UpdateRally (Id : int)
+        + DeleteRally(Id : int)
+        + GetAll(): List<Rally>
+    }
+}
+rectangle View{
+    class "Views"{
+
+
+    }
+}
+
+
+RallyRepo --> GenericRepository
+ExtraRepo --> GenericRepository
+SignRepo --> GenericRepository
+GenericRepository --> IGenericRepository
+IGenericRepository--> DbContext
+ExtraRepoConnection .. Extra
+ExtraModelConnection . ExtraRepo
+SignRepoConnection .. Sign
+SignModelConnection . SignRepo
+RallyModelConnection . RallyRepo
+RallyRepoConnection . Rally
+
+
+Rally .. Level
+Rally --|>  Date
+Rally --|> ItemList
+ItemList --|> Sign
+ItemList --|> Arrow 
+ItemList --|> Extra
+Sign  --|> Placement
+Sign .. Level
+Arrow  --|>  Placement
+Extra  --|> Placement
+
+@enduml
