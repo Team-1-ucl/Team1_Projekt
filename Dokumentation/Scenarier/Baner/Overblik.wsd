@@ -1,0 +1,45 @@
+@startuml Overblik
+top to bottom direction 
+package "Logical View" {
+    package "Usecase Diagram"{
+        [UC_OpdaterBane] 
+        [UC_OpretterBane]
+        [UC_SeBane] 
+        [UC_SletBane] 
+        [UC_DeleBane]
+    }
+    
+    [Wireframes]
+    package "System Sequence Diagram"{
+        [ssd_Delebane]
+        [ssd_OpdaterBane]
+        [ssd_OpretterBane]
+        [ssd_SletBane]
+    }
+}
+package "Development View"{
+    [DB-Model]
+    [DCD]
+    package "Operation Contracts"{
+        [OC_OpdaterBane]
+        [OC_Delerbane]
+        [OC_OpretterBane]
+        [OC_SletterBane]
+    }
+
+    [DM]
+    [OM]
+    [SD]
+}
+
+
+
+OC_OpdaterBane --- ssd_OpdaterBane
+OC_Delerbane --- ssd_Delebane
+OC_OpretterBane --- ssd_OpretterBane
+OC_SletterBane -- ssd_SletBane
+ssd_Delebane -- UC_DeleBane
+ssd_OpdaterBane -- UC_OpdaterBane
+ssd_SletBane -- UC_SletBane
+ssd_OpretterBane -- UC_OpretterBane
+@enduml
