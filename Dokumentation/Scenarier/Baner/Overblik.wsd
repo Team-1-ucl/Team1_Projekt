@@ -185,7 +185,7 @@ DCDpackage <-[thickness=3]- DB #Gold
 DCDpackage -[thickness=3]-> DM #Gold
 DM -[thickness=3]-> OM #Gold
 
-UC_Diagram <-[thickness=3]- UseCases #lightgreen
+UC_Diagram <-[thickness=3]u- UseCases #lightgreen
 ssd_Delebane <-[thickness=3]- DeleBaneSD #IndianRed
 ssd_OpdaterBane <-[thickness=3]- OpdaterBaneSD #IndianRed
 ssd_OpretterBane <-[thickness=3]- OpretBaneSD #IndianRed
