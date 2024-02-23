@@ -1,45 +1,205 @@
 @startuml Overblik
-top to bottom direction 
+title **Baner Scenariet**
+left to right direction
+
+skinparam nodesep 5
+skinparam ranksep 250
+skinparam linetype polyline
+skinparam dpi 300
+
+skinparam BackgroundColor lightgrey
+skinparam ComponentBackgroundColor white
+skinparam ComponentBorderColor white
+skinparam PackageBackgroundColor white
+skinparam PackageBorderColor white
+
 package "Logical View" {
-    package "Usecase Diagram"{
-        [UC_OpdaterBane] 
-        [UC_OpretterBane]
-        [UC_SeBane] 
-        [UC_SletBane] 
-        [UC_DeleBane]
+    package "Usecase Diagram"#LightBlue{
+        component UC_Diagram #LightGreen[ 
+            **UC_Diagram**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        
+    }
+    package "Use Cases" as UseCases #LightBlue{
+        component UC_OpdaterBane #LightGreen[
+            **UC_OpdaterBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component UC_OpretterBane#LightGreen[
+            **UC_OpretterBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component UC_SeBane  #Gold[
+            **UC_SeBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component UC_SletBane#LightGreen[
+            **UC_SletBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component UC_DeleBane#LightGreen[
+            **UC_DeleBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+
     }
     
-    [Wireframes]
-    package "System Sequence Diagram"{
-        [ssd_Delebane]
-        [ssd_OpdaterBane]
-        [ssd_OpretterBane]
-        [ssd_SletBane]
+    package Wireframes #LightBlue
+    package "System Sequence Diagram"#LightBlue{
+        component ssd_Delebane#Gold[
+            **ssd_Delebane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component ssd_OpdaterBane #LightGreen[
+            **ssd_OpdaterBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component ssd_OpretterBane #LightGreen [
+            **ssd_OpretterBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
+        component ssd_SletBane #LightGreen [
+            **ssd_SletBane**
+            * Valideret
+            * Verificeret
+            * Godkendt af PO
+        ]
     }
+        
 }
+
 package "Development View"{
-    [DB-Model]
-    [DCD]
-    package "Operation Contracts"{
-        [OC_OpdaterBane]
-        [OC_Delerbane]
-        [OC_OpretterBane]
-        [OC_SletterBane]
+    package "Database" as DB#LightBlue{
+        [Entity Model] #Gold
     }
 
-    [DM]
-    [OM]
-    [SD]
+    package "Design class diagram" as DCDpackage#LightBlue{
+        [DCD] #Gold
+
+    }
+    package "Operation Contracts"#LightBlue{
+        component OC_OpdaterBane#LightGreen{
+            
+        }
+
+        component OC_Delerbane#Gold{
+            
+        }
+
+        component OC_OpretterBane#LightGreen{
+            
+
+        }
+
+        component OC_SletterBane#Gold{
+            
+        }
+
+        
+    }
+
+    package "Domæne Model" as DM #LightBlue{
+        component Domænemodel#Gold
+    }
+    package "Object Model" as OM #LightBlue{
+        component ObjectModel#Gold
+    }
+    package "Sequence Diagram" as SD #LightBlue {
+        package "Opdater Bane SD'er" as OpdaterBaneSD #IndianRed{
+            component SQD1#IndianRed{
+
+            }
+            component SQD2#IndianRed{
+
+            }
+            component SQD3#IndianRed{
+                
+            }
+
+        }
+        package "Dele Bane SD'er" as DeleBaneSD #IndianRed{
+            component SQD4#IndianRed{
+
+            }
+            component SQD5#IndianRed{
+
+            }
+            component SQD6#IndianRed{
+                
+            }
+
+        }
+        package "Slet Bane SD'er" as SletBaneSD #IndianRed{
+            component SQD7#IndianRed{
+
+            }
+            component SQD8#IndianRed{
+
+            }
+            component SQD9#IndianRed{
+                
+            }
+
+        }
+        package "Opret Bane SD'er" as OpretBaneSD #IndianRed{
+            component SQD10#IndianRed{
+               
+            }
+            component SQD11#IndianRed{
+
+            }
+            component SQD12#IndianRed{
+                
+            }
+
+        }
+    }
 }
 
+package "Physical View"{
 
+}
+package "Process View"{
+    
+}
+DCDpackage <-[thickness=3]- DB #Gold
+DCDpackage -[thickness=3]-> DM #Gold
+DM -[thickness=3]-> OM #Gold
 
-OC_OpdaterBane --- ssd_OpdaterBane
-OC_Delerbane --- ssd_Delebane
-OC_OpretterBane --- ssd_OpretterBane
-OC_SletterBane -- ssd_SletBane
-ssd_Delebane -- UC_DeleBane
-ssd_OpdaterBane -- UC_OpdaterBane
-ssd_SletBane -- UC_SletBane
-ssd_OpretterBane -- UC_OpretterBane
+UC_Diagram <-[thickness=3]- UseCases #lightgreen
+ssd_Delebane <-[thickness=3]- DeleBaneSD #IndianRed
+ssd_OpdaterBane <-[thickness=3]- OpdaterBaneSD #IndianRed
+ssd_OpretterBane <-[thickness=3]- OpretBaneSD #IndianRed
+ssd_SletBane <-[thickness=3]- SletBaneSD #IndianRed
+
+OC_OpdaterBane --[thickness=3]-> ssd_OpdaterBane #Gold
+
+OC_Delerbane -[thickness=3]-> ssd_Delebane #Gold
+OC_OpretterBane --[thickness=3]-> ssd_OpretterBane #Gold
+OC_SletterBane --[thickness=3]u-> ssd_SletBane #Gold
+ssd_Delebane -[thickness=3]-> UC_DeleBane #Gold
+ssd_OpdaterBane --[thickness=3]-> UC_OpdaterBane #Gold
+ssd_SletBane -[thickness=3]-> UC_SletBane #Gold
+ssd_OpretterBane -[thickness=3]-> UC_OpretterBane #Gold
+
+footer Overblik over projektet
 @enduml
