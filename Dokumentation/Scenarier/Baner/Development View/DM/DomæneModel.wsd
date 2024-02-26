@@ -1,12 +1,10 @@
 @startuml DomæneModel
+title Domæne Model
 class "Bane"{
     Navn
     Højde
     Bredde
-}
-class "Pile" {
-    Retning
-    Længde
+    Kategori
 }
 class "Skilte"{
     Nummer
@@ -17,9 +15,7 @@ class "Øvrige_Elementer"{
     Navn
     Billede
 }
-class "Sværhedsgrad"{
-    Navn
-}
+
 class "Dato"{
     Dato
 }
@@ -31,15 +27,13 @@ class "Placering"{
     Y_Koordinat
 }
 
-Bane "1" -- "1..*" Sværhedsgrad: > Har én 
+
 Bane "1" -- "1..*" Skilte: > Indeholder
 Bane "1..*" -- "1" Dato
 Bane "1"-- "0..*" Øvrige_Elementer: > Kan indeholde
-Bane "1"--"1..*" Pile
 Skilte "1" ---- "1" Rækkefølge
 Skilte "1" -- "1" Placering
-Skilte "1" -- "1" Sværhedsgrad
-Pile "1" ---- "1" Placering
-Øvrige_Elementer "1" -- "1" Rækkefølge: < I tvivl spørg lene
+Øvrige_Elementer "1" -- "1" Placering
+Øvrige_Elementer "1" -- "1" Rækkefølge 
 
 @enduml
