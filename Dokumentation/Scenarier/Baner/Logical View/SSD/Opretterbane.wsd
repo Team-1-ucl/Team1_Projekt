@@ -1,5 +1,5 @@
 @startuml Opretter Bane
-title Opret bane \n SSD 
+title Opretter Bane \n SSD 
 skinparam style strictuml
 actor Bruger
 participant System as sys

@@ -36,11 +36,9 @@ package "Logical View" {
             * Verificeret
             * Godkendt af PO
         ]
-        component UC_SeBane  #Gold[
+        component UC_SeBane #LightGreen[
             **UC_SeBane**
-            * Valideret
-            * Verificeret
-            * Godkendt af PO
+            
         ]
         component UC_SletBane#LightGreen[
             **UC_SletBane**
@@ -83,8 +81,12 @@ package "Logical View" {
             * Verificeret
             * Godkendt af PO
         ]
+        component ssd_SeBane #LightGreen [
+            **ssd_SeBane**
+        ]
+    
+    
     }
-        
 }
 
 package "Development View"{
@@ -93,7 +95,7 @@ package "Development View"{
     }
 
     package "Design class diagram" as DCDpackage#LightBlue{
-        [DCD] #Gold
+        [DCD] #LightGreen
 
     }
     package "Operation Contracts"#LightBlue{
@@ -113,65 +115,26 @@ package "Development View"{
         component OC_SletterBane#Gold{
             
         }
+        component OC_SeBane#LightGreen{
+            
+        }
 
         
     }
 
     package "Domæne Model" as DM #LightBlue{
-        component Domænemodel#Gold
+        component Domænemodel#LightGreen
     }
     package "Object Model" as OM #LightBlue{
-        component ObjectModel#Gold
+        component ObjectModel#LightGreen
     }
     package "Sequence Diagram" as SD #LightBlue {
-        package "Opdater Bane SD'er" as OpdaterBaneSD #IndianRed{
-            component SQD1#IndianRed{
+        package "Se Bane SD'er" as OpdaterBaneSD #LightBlue{
+            component SD_SortingItemList#IndianRed{
 
             }
-            component SQD2#IndianRed{
-
-            }
-            component SQD3#IndianRed{
-                
-            }
-
         }
-        package "Dele Bane SD'er" as DeleBaneSD #IndianRed{
-            component SQD4#IndianRed{
-
-            }
-            component SQD5#IndianRed{
-
-            }
-            component SQD6#IndianRed{
-                
-            }
-
-        }
-        package "Slet Bane SD'er" as SletBaneSD #IndianRed{
-            component SQD7#IndianRed{
-
-            }
-            component SQD8#IndianRed{
-
-            }
-            component SQD9#IndianRed{
-                
-            }
-
-        }
-        package "Opret Bane SD'er" as OpretBaneSD #IndianRed{
-            component SQD10#IndianRed{
-               
-            }
-            component SQD11#IndianRed{
-
-            }
-            component SQD12#IndianRed{
-                
-            }
-
-        }
+        
     }
 }
 
@@ -181,17 +144,17 @@ package "Physical View"{
 package "Process View"{
     
 }
-DCDpackage <-[thickness=3]- DB #Gold
-DCDpackage -[thickness=3]-> DM #Gold
-DM -[thickness=3]-> OM #Gold
 
-UC_Diagram <-[thickness=3]u- UseCases #lightgreen
-ssd_Delebane <-[thickness=3]- DeleBaneSD #IndianRed
-ssd_OpdaterBane <-[thickness=3]- OpdaterBaneSD #IndianRed
-ssd_OpretterBane <-[thickness=3]- OpretBaneSD #IndianRed
-ssd_SletBane <-[thickness=3]- SletBaneSD #IndianRed
+DCDpackage <-[thickness=3]- DB #Gold
+DCDpackage -[thickness=3]-> DM #green
+DM -[thickness=3]-> OM #green
+
+
+
+UC_Diagram <-[thickness=3]u- UseCases #green
 
 OC_OpdaterBane --[thickness=3]-> ssd_OpdaterBane #Gold
+OC_SeBane --[thickness=3]-> ssd_SeBane #green
 
 OC_Delerbane -[thickness=3]-> ssd_Delebane #Gold
 OC_OpretterBane --[thickness=3]-> ssd_OpretterBane #Gold
@@ -199,7 +162,8 @@ OC_SletterBane --[thickness=3]u-> ssd_SletBane #Gold
 ssd_Delebane -[thickness=3]-> UC_DeleBane #Gold
 ssd_OpdaterBane --[thickness=3]-> UC_OpdaterBane #Gold
 ssd_SletBane -[thickness=3]-> UC_SletBane #Gold
-ssd_OpretterBane -[thickness=3]-> UC_OpretterBane #Gold
-
+ssd_OpretterBane -[thickness=3]-> UC_OpretterBane #green
+ssd_SeBane -[thickness=3]-> UC_SeBane #green
+SD_SortingItemList -[thickness=3]-> ssd_SeBane #IndianRed
 footer Overblik over projektet
 @enduml

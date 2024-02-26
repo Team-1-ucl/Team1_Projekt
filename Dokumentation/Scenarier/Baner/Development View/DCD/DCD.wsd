@@ -26,9 +26,9 @@ rectangle Model_layer {
         }
         class "ExtraRepo"{
         }
-        class "CategoryRepo"{
-            
+        class "ItemListRepo"{
         }
+        
         class "DbContext"{
             --Properties--
             + Rally : DbSet<Rally>
@@ -41,73 +41,92 @@ rectangle Model_layer {
         circle "Model Connection" as ExtraModelConnection{}
         circle "Model Connection" as RallyModelConnection{}
         circle "Model Connection" as SignModelConnection{}
-        circle "Model Connection" as CategoryModelConnection{}
+        circle "Model Connection" as ItemListModelConnection{}
  
     }
     rectangle Domain {
-        circle "Repo Connection" as ExtraRepoConnection{}
-        circle "Repo Connection" as RallyRepoConnection{}
-        circle "Repo Connection" as SignRepoConnection{}
-        circle "Repo Connection" as CategoryRepoConnection{}
         
+        circle "Repo Connection" as RallyRepoConnection{}
         class "Rally"{
             --Properties--
+            + Id : int
             + Name : string
             + Height : int
             + Width : int
             + ItemList : ItemList
             + Date : date
             + Level : Level
+            + Category : string
             --Constructor--
             + Rally()
             + Rally(Name, Height, Width, Level, ItemList, Date)
 
         }
         
-        class "Sign"{
-            --Properties--
-            + Number : int
-            + Description : string
-            + Image : string
-            + Placement : Placement
-        }
-        class "Extra"{
-            --Properties--
-            + Name : string
-            + Description : string
-            + Image : string
-            + Placement : Placement
-        }
-        class "Category"{
-            + CategoryName : string
-        }
         class "Date"{
             --Properties--
+            + Id : int
             + Date : DateTime
         }
+
+        circle "Repo Connection" as ItemListConnection{}
         class "ItemList"{
             --Properties--
+            + Id : int
             + Items : IItems
             + Number : int
             + Sign : Sign
             + Extra : Extra
+            --Methods--
+            + SortingItemList() : List<IItem>
         }
-        interface IItem{
-            - Number : int
-            - Description : string
-            - Image : string
-            - Placement : Placement
-        }
-        class "Placement"{
-            --Properties--
-            + X_Koordinat
-            + Y_Koordinat
-        }
-        
-    }
 
-    
+        rectangle items {
+            circle "Repo Connection" as ExtraRepoConnection{}
+            circle "Repo Connection" as SignRepoConnection{}
+            
+            class "Sign"{
+                --Properties--
+                + Id : int
+                + Number : int
+                + Description : string
+                + Image : string
+                + Placement : Placement
+                + Difficulty : Difficulty
+            }   
+
+            class "Difficulty"{
+                --Properties--
+                + Id : int
+                + name : string
+            }
+            class "Extra"{
+                --Properties--
+                + Id : int
+                + Name : string
+                + Description : string
+                + Image : string
+                + Placement : Placement
+            }
+            interface IItem{
+                --Properties--
+                - Id : int
+                - Number : int
+                - Description : string
+                - Image : string
+                - Placement : Placement
+                
+            }
+            class "Placement"{
+                --Properties--
+                + Id : int
+                + X_Koordinat
+                + Y_Koordinat
+            }
+        }  
+    }
 }
+
 rectangle Controller_layer{
     Class RallyController{
         + CreateRally (Name : string, Height : int, Width : int, level : enum, ItemList : itemList, Date : DateTime)
@@ -122,8 +141,8 @@ rectangle View{
     }
 }
 
-CategoryRepo --> GenericRepository
 RallyRepo --> GenericRepository
+ItemListRepo --> GenericRepository
 ExtraRepo --> GenericRepository
 SignRepo --> GenericRepository
 GenericRepository --> IGenericRepository
@@ -134,18 +153,17 @@ SignRepoConnection .. Sign
 SignModelConnection . SignRepo
 RallyModelConnection . RallyRepo
 RallyRepoConnection . Rally
-CategoryRepoConnection . Category
-CategoryModelConnection . CategoryRepo
+ItemListModelConnection . ItemListRepo
+ItemListConnection . ItemList
 
 
-Rally -- Category
 Rally --|>  Date
 Rally --|> ItemList
 ItemList --|> IItem
 IItem <-- Sign
 IItem <-- Extra
 Sign  --|> Placement
-Sign -- Category
+Difficulty <|-- Sign
 Extra  --|> Placement
 
 @enduml

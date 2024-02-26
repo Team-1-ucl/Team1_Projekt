@@ -12,31 +12,10 @@ skinparam rectangle {
   BackgroundColor lightGrey
   
 }
-rectangle Bane{
-    map "**Bane1**" as B1{
-        Længde => 18
-        Brede => 25
-    }
-}
-rectangle Sværhedsgrad {
-    map "**Sværhedsgrad1**" as S1{
-        Tekst => Begynder
-    }
-    map "**Sværhedsgrad2**" as S2{
-        Tekst => Øvet
-    }
-    map "**Sværhedsgrad3**" as S3{
-        Tekst => Ekspert
-    }
-    map "**Sværhedsgrad4**" as S4{
-        Tekst => Champion
-    }
-    map "**Sværhedsgrad5**" as S5{
-        Tekst => Åben
-    }
-}
 
-rectangle Øvrige_Elementer{
+
+
+rectangle "Øvrige Elementer" as Øvrige_Elementer{
 
     map "**Ø_Element1**" as Ø1{
         Type => Spand
@@ -47,15 +26,7 @@ rectangle Øvrige_Elementer{
     
 }
 
-rectangle Pile{
 
-    map "**Pil1**" as Pil1{
-        Retning => Højre mod venstre
-        Højreposition => Nej
-        Længde => 5m
-        Billede =>  Jeps
-    }
-}
 
 rectangle Skilt{
     map "**Skilt**" as Skilt1{
@@ -75,6 +46,7 @@ rectangle Bane{
             Navn => Lenes Bane
             Højde => 18 m
             Bredde => 25 m
+            Kategori => Ekspert
         }
 }
 rectangle Placering{
@@ -85,6 +57,10 @@ rectangle Placering{
         map "**Placering2**" as Placering2{
             x => 25
             y => 11
+        }
+        map "**Placering3**" as Placering3{
+            x => 35
+            y => 12
         }
 }
 rectangle Rækkefølge{
@@ -103,8 +79,11 @@ Rækkefølge1 -- Skilt1
 Skilt1 -- Placering1
 Skilt1 -- Bane1
 Bane1 -- Dato1
-Bane1 -- Pil1
-Pil1 -- Placering2
+Ø2 -- Placering2
 Bane1 -- Ø1
-S1 -- Bane1
+Bane1 -- Ø2
+Ø1 -- Placering3
+Ø1 -- Rækkefølge2
+Ø2 -- Rækkefølge1
+
 @enduml
