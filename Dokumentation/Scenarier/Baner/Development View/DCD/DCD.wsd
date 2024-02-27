@@ -1,6 +1,28 @@
 @startuml DCD
-rectangle Model_layer {
-    rectangle Repositories{  
+title DCD
+skinparam nodesep 20
+skinparam ranksep 50
+skinparam linetype polyline
+skinparam dpi 300
+skinparam ComponentBorderThickness 0
+skinparam BackgroundColor lightgrey
+skinparam ComponentBackgroundColor white
+skinparam ComponentBorderColor white
+skinparam PackageBorderColor white
+
+package Model_layer #White {
+    package Data #LightBlue{
+        class "DbContext"{
+            --Properties--
+            + Rally : DbSet<Rally>
+            + Sign : DbSet<Sign>
+            + Extra : DbSet<Extra>
+            --Methods--
+            + OnConfiguring(DbContextOptionbuilder optionsBuilder)
+            + OnModelCreating(ModelBuilder modelbuilder)
+        }
+    }
+    package Repositories #LightBlue{  
         note top of GenericRepository : Creating a Generic Repo reduces redundancy
         class "GenericRepository"{
             --Methods--
@@ -29,22 +51,13 @@ rectangle Model_layer {
         class "ItemListRepo"{
         }
         
-        class "DbContext"{
-            --Properties--
-            + Rally : DbSet<Rally>
-            + Sign : DbSet<Sign>
-            + Extra : DbSet<Extra>
-            --Methods--
-            + OnConfiguring(DbContextOptionbuilder optionsBuilder)
-            + OnModelCreating(ModelBuilder modelbuilder)
-        }
         circle "Model Connection" as ExtraModelConnection{}
         circle "Model Connection" as RallyModelConnection{}
         circle "Model Connection" as SignModelConnection{}
         circle "Model Connection" as ItemListModelConnection{}
  
     }
-    rectangle Domain {
+    package Model #LightBlue {
         
         circle "Repo Connection" as RallyRepoConnection{}
         class "Rally"{
@@ -54,16 +67,15 @@ rectangle Model_layer {
             + Height : int
             + Width : int
             + ItemList : ItemList
-            + Date : date
-            + Level : Level
+            + DateCreate : date            
             + Category : string
-            --Constructor--
+            ==Constructor==
             + Rally()
             + Rally(Name, Height, Width, Level, ItemList, Date)
 
         }
         
-        class "Date"{
+        class "DateCreate"{
             --Properties--
             + Id : int
             + Date : DateTime
@@ -73,50 +85,59 @@ rectangle Model_layer {
         class "ItemList"{
             --Properties--
             + Id : int
-            + Items : IItems
+            + Items : List<Item>
             + Number : int
             + Sign : Sign
             + Extra : Extra
+            
             --Methods--
-            + SortingItemList() : List<IItem>
+            + SortingItemList() : List<Item>
         }
 
-        rectangle items {
+        package items #LightSkyBlue {
             circle "Repo Connection" as ExtraRepoConnection{}
             circle "Repo Connection" as SignRepoConnection{}
             
-            class "Sign"{
-                --Properties--
-                + Id : int
-                + Number : int
-                + Description : string
-                + Image : string
-                + Placement : Placement
-                + Difficulty : Difficulty
-            }   
 
             class "Difficulty"{
                 --Properties--
                 + Id : int
                 + name : string
             }
-            class "Extra"{
+            abstract class Item <<abstract class>>{
                 --Properties--
                 + Id : int
-                + Name : string
                 + Description : string
                 + Image : string
                 + Placement : Placement
-            }
-            interface IItem{
-                --Properties--
-                - Id : int
-                - Number : int
-                - Description : string
-                - Image : string
-                - Placement : Placement
                 
             }
+            class "Extra"{
+                ..Properties from Item..
+                + Id : int
+                + Description : string
+                + Image : string
+                + Placement : Placement
+                __
+                --Properties--
+                + Name : string
+                ==Constructor==
+                + Extra(Id : int,Description : string, Image : string,\nPlacement : Placement, Name : string)
+            }
+            class "Sign"{
+                ..Properties from Item..
+                + Id : int
+                + Description : string
+                + Image : string
+                + Placement : Placement
+                __
+                --Properties--
+                + Number : int
+                + Difficulty : Difficulty
+                ==Constructor==
+                + Sign(Id : int, Description : string, Image : string,\n Placement : Placement, Number : int, Difficulty : Difficulty)
+
+            }   
             class "Placement"{
                 --Properties--
                 + Id : int
@@ -127,7 +148,7 @@ rectangle Model_layer {
     }
 }
 
-rectangle Controller_layer{
+package Controller_layer #white{
     Class RallyController{
         + CreateRally (Name : string, Height : int, Width : int, level : enum, ItemList : itemList, Date : DateTime)
         + ReadRally (Name : string)
@@ -136,7 +157,7 @@ rectangle Controller_layer{
         + GetAll(): List<Rally>
     }
 }
-rectangle View{
+package View #white{
     class "Views"{
     }
 }
@@ -157,11 +178,11 @@ ItemListModelConnection . ItemListRepo
 ItemListConnection . ItemList
 
 
-Rally --|>  Date
+Rally --|>  DateCreate
 Rally --|> ItemList
-ItemList --|> IItem
-IItem <-- Sign
-IItem <-- Extra
+ItemList --|> Item
+Item <-- Sign
+Item <-- Extra
 Sign  --|> Placement
 Difficulty <|-- Sign
 Extra  --|> Placement
