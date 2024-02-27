@@ -75,6 +75,8 @@ StyleCopReport.xml
 *.tli
 *.tlh
 *.tmp
+*.cache
+*.vsidx
 *.tmp_proj
 *_wpftmp.csproj
 *.log
