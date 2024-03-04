@@ -8,7 +8,7 @@ skinparam SequenceGroupFontColor DarkOrchid
 skinparam SequenceGroupBackgroundColor Thistle
 skinparam SequenceLifeLineBackgroundColor Thistle
 skinparam SequenceLifeLineBorderColor Thistle
-
+skinparam Style strictUML
 
 actor User
 participant "View" as UI
@@ -37,8 +37,8 @@ RallyCon --> UI : Error
 deactivate RallyCon
 else Id found
 RallyRepo <-- DB : Rally Data 
-activate RallyRepo #PaleVioletRed
 destroy DB
+activate RallyRepo #PaleVioletRed
 end
 RallyRepo -> RallyRepo : Rally Object Generated
 RallyRepo --> RallyCon : Rally Object
@@ -52,19 +52,22 @@ activate DB
 else No Id in Database
 DB --> ItemListRepo :Error
 activate ItemListRepo #PaleVioletRed
-ItemListRepo --> RallyCon : Error
 deactivate ItemListRepo
+ItemListRepo --> RallyCon : Error
 activate RallyCon#PaleVioletRed
 RallyCon --> UI : Error
 deactivate RallyCon 
 else Id found
 DB --> ItemListRepo : List Data found
-activate ItemListRepo#PaleVioletRed
 destroy DB
+activate ItemListRepo#PaleVioletRed
 end
 ItemListRepo --> RallyCon : List Object
 deactivate ItemListRepo 
 activate RallyCon#PaleVioletRed
+deactivate ItemListRepo 
 RallyCon --> UI : Rally Object
 deactivate RallyCon
+deactivate RallyCon
+deactivate UI
 @enduml
