@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,8 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Modellayer\Data\DbContext" />
+    <None Remove="Modellayer\Data\NewFile.txt" />
+    <None Remove="Modellayer\NewFile.txt" />
+    <None Remove="Modellayer\Repositories\IGenericRepositor.txt" />
+    <None Remove="Modellayer\Repositories\NewFile.txt" />
+    <None Remove="Modellayer\Repositories\NewFile1.txt" />
+    <None Remove="Modellayer\Repositories\NewFile2.txt" />
+    <None Remove="Modellayer\Repositories\NewFileI.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DogApp.Client\DogApp.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
   </ItemGroup>
 
 </Project>
