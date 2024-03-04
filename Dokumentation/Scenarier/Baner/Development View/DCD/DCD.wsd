@@ -49,6 +49,7 @@ package Model_layer #White {
         class "ExtraRepo"{
         }
         class "ItemListRepo"{
+        
         }
         
         circle "Model Connection" as ExtraModelConnection{}
@@ -90,8 +91,7 @@ package Model_layer #White {
             + Sign : Sign
             + Extra : Extra
             
-            --Methods--
-            + SortingItemList() : List<Item>
+            
         }
 
         package items #LightSkyBlue {
@@ -150,10 +150,11 @@ package Model_layer #White {
 
 package Controller_layer #white{
     Class RallyController{
-        + CreateRally (Name : string, Height : int, Width : int, level : enum, ItemList : itemList, Date : DateTime)
+        + CreateRally (Name : string, Height : int, Width : int,\n level : enum, ItemList : itemList, Date : DateTime)
         + ReadRally (Name : string)
         + UpdateRally (Id : int)
         + DeleteRally(Id : int)
+        + GetItemListWithRallyId(RallyId : int)
         + GetAll(): List<Rally>
     }
 }

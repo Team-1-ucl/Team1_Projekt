@@ -1,7 +1,6 @@
 @startuml Overblik
 title **Baner Scenariet**
 left to right direction
-
 skinparam nodesep 5
 skinparam ranksep 250
 skinparam linetype polyline
@@ -12,7 +11,6 @@ skinparam ComponentBackgroundColor white
 skinparam ComponentBorderColor white
 skinparam PackageBackgroundColor white
 skinparam PackageBorderColor white
-
  
 !$Component = {"Valid" : "Valideret", 
                 "Verified" : "Verificeret", 
@@ -20,6 +18,7 @@ skinparam PackageBorderColor white
                 "NotApproved" : "Ikke Godkendt af PO",
                 "NotValidated" : "Ikke Valideret",
                 "NotVerified" : "Ikke Verificeret"}
+
 
 package "Logical View" {
     package "Usecase Diagram"#LightBlue{
@@ -143,7 +142,7 @@ package "Development View"{
     }
     package "Sequence Diagram" as SD #LightBlue {
         package "Se Bane SD'er" as OpdaterBaneSD #LightBlue{
-            component SD_SortingItemList#IndianRed{
+            component SD_SortedItemList#LightGreen{
 
             }
         }
@@ -177,6 +176,7 @@ ssd_OpdaterBane --[thickness=3]-> UC_OpdaterBane #Gold
 ssd_SletBane -[thickness=3]-> UC_SletBane #Gold
 ssd_OpretterBane -[thickness=3]-> UC_OpretterBane #green
 ssd_SeBane -[thickness=3]-> UC_SeBane #green
-SD_SortingItemList -[thickness=3]-> ssd_SeBane #IndianRed
+SD_SortedItemList -[thickness=3]-> ssd_SeBane #green
+SD_SortedItemList -[thickness=3]-> OC_SeBane #Green
 footer Overblik over projektet
 @enduml
