@@ -28,8 +28,8 @@ package "Logical View" {
             * $Component.Verified
             * $Component.Approved
         ]
-        
     }
+
     package "Use Cases" as UseCases #LightBlue{
         component UC_OpdaterBane #LightGreen[
             **UC_OpdaterBane**
@@ -37,31 +37,34 @@ package "Logical View" {
             * $Component.Verified
             * $Component.Approved
         ]
+
         component UC_OpretterBane#LightGreen[
             **UC_OpretterBane**
             * $Component.Valid
             * $Component.Verified
             * $Component.Approved
         ]
+
         component UC_SeBane #LightGreen[
             **UC_SeBane**
             * $Component.NotValidated
             * $Component.NotVerified
             * $Component.NotApproved
         ]
+
         component UC_SletBane#LightGreen[
             **UC_SletBane**
             * $Component.Valid
             * $Component.Verified
             * $Component.Approved
         ]
+
         component UC_DeleBane#LightGreen[
             **UC_DeleBane**
             * $Component.Valid
             * $Component.Verified
             * $Component.Approved
         ]
-
     }
     
     package Wireframes #LightBlue
@@ -72,32 +75,34 @@ package "Logical View" {
             * $Component.Verified
             * $Component.Approved
         ]
+
         component ssd_OpdaterBane #LightGreen[
             **ssd_OpdaterBane**
             * $Component.Valid
             * $Component.Verified
             * $Component.Approved
         ]
+
         component ssd_OpretterBane #LightGreen [
             **ssd_OpretterBane**
             * $Component.Valid
             * $Component.Verified
             * $Component.Approved
         ]
+
         component ssd_SletBane #LightGreen [
             **ssd_SletBane**
             * $Component.Valid
             * $Component.Verified
             * $Component.Approved
         ]
+
         component ssd_SeBane #LightGreen [
             **ssd_SeBane**
             * $Component.NotApproved
             * $Component.NotValidated
             * $Component.NotVerified
         ]
-    
-    
     }
 }
 
@@ -137,16 +142,16 @@ package "Development View"{
     package "Domæne Model" as DM #LightBlue{
         component Domænemodel#LightGreen
     }
+
     package "Object Model" as OM #LightBlue{
         component ObjectModel#LightGreen
     }
+
     package "Sequence Diagram" as SD #LightBlue {
         package "Se Bane SD'er" as OpdaterBaneSD #LightBlue{
             component SD_SortedItemList#LightGreen{
-
             }
         }
-        
     }
 }
 
@@ -160,8 +165,6 @@ package "Process View"{
 DCDpackage <-[thickness=3]- DB #Gold
 DCDpackage -[thickness=3]-> DM #green
 DM -[thickness=3]-> OM #green
-
-
 
 UC_Diagram <-[thickness=3]u- UseCases #green
 
