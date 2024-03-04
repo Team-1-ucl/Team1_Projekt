@@ -30,7 +30,7 @@ entity Rally{
     Extras : ICollection<Extra>
 }
 
-entity RallySign{
+entity ItemList{
     --Navigational Properties--
     Sign : Sign
     Rally : Rally
@@ -42,9 +42,11 @@ entity Placement{
     Y_Koordinat
 
 }
-Rally ||--|| RallySign 
-RallySign ||--||Sign
-Extra ||--|{Rally
+Rally ||--|{ ItemList 
+ItemList ||--||Sign
+Extra ||--|{ItemList
+Placement ||--|| Extra 
+Placement ||--|| Sign
 
 
 @enduml
