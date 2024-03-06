@@ -1,5 +1,7 @@
 using DogApp.Client.Pages;
 using DogApp.Components;
+using DogApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DogApp
 {
@@ -9,12 +11,21 @@ namespace DogApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            }
+            );
+
+
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
