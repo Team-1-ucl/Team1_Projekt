@@ -16,4 +16,8 @@ public class Difficulty
     ///  of the difficulty level (e.g., "Easy", "Medium", "Hard").
     /// </summary>
     public string Name { get; set; }
+
+    public Difficulty()
+    {
+    }
 }

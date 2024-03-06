@@ -13,7 +13,7 @@ public class ItemListTest
     public void ItemListCreate_ShouldCreate()
     {
         //arrange
-        var difficulty1 = new Difficulty { Name = "open" };
+        var difficulty1 = new Difficulty {Id = 1, Name = "open" };
 
         var item1 = new Sign
         {
