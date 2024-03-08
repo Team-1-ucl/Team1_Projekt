@@ -149,7 +149,7 @@ package "Development View"{
 
     package "Sequence Diagram" as SD #LightBlue {
         package "Se Bane SD'er" as OpdaterBaneSD #LightBlue{
-            component SD_SortedItemList#LightGreen{
+            component SD_ViewRally#Gold{
             }
         }
     }
@@ -179,7 +179,7 @@ ssd_OpdaterBane --[thickness=3]-> UC_OpdaterBane #Gold
 ssd_SletBane -[thickness=3]-> UC_SletBane #Gold
 ssd_OpretterBane -[thickness=3]-> UC_OpretterBane #green
 ssd_SeBane -[thickness=3]-> UC_SeBane #green
-SD_SortedItemList -[thickness=3]-> ssd_SeBane #green
-SD_SortedItemList -[thickness=3]-> OC_SeBane #Green
+SD_ViewRally -[thickness=3]-> ssd_SeBane #green
+SD_ViewRally -[thickness=3]-> OC_SeBane #Green
 footer Overblik over projektet
 @enduml
