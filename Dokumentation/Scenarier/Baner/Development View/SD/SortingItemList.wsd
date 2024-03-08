@@ -1,5 +1,5 @@
-@startuml SortedItemList
-title SortedItemList \nSD\n SSD Se_bane
+@startuml ViewRally
+title ViewRally \nSD\n SSD Se_bane
 skinparam SequenceGroupBorderThickness 0.01
 skinparam SequenceDividerBorderColor MediumPurple
 skinparam SequenceDividerBackgroundColor MediumPurple
@@ -22,10 +22,10 @@ User -> UI : View Rally
 activate UI
 UI -> RallyCon : **GetRally(**RallyID : int**)**
 activate RallyCon
-RallyCon -> RallyRepo : **GetItemListWithRallyId(**RallyId : int**)**
+RallyCon -> RallyRepo : **GetRally(**RallyId : int**)**
 activate RallyRepo
 alt ID Request in DB
-RallyRepo -> DB : **GetRallyById(**RallyID : int**)**
+RallyRepo -> DB : Request
 activate DB
 else No Id in Database
 DB --> RallyRepo : ID not found
@@ -44,30 +44,5 @@ RallyRepo -> RallyRepo : Rally Object Generated
 RallyRepo --> RallyCon : Rally Object
 deactivate RallyRepo
 deactivate RallyRepo
-RallyCon -> ItemListRepo : **GetListById(**RallyId: int**)**
-alt ID Request in DB
-activate ItemListRepo 
-ItemListRepo -> DB : **GetListById(**RallyId : int**)**
-activate DB
-else No Id in Database
-DB --> ItemListRepo :Error
-activate ItemListRepo #PaleVioletRed
-deactivate ItemListRepo
-ItemListRepo --> RallyCon : Error
-activate RallyCon#PaleVioletRed
-RallyCon --> UI : Error
-deactivate RallyCon 
-else Id found
-DB --> ItemListRepo : List Data found
-destroy DB
-activate ItemListRepo#PaleVioletRed
-end
-ItemListRepo --> RallyCon : List Object
-deactivate ItemListRepo 
-activate RallyCon#PaleVioletRed
-deactivate ItemListRepo 
-RallyCon --> UI : Rally Object
-deactivate RallyCon
-deactivate RallyCon
-deactivate UI
+
 @enduml
