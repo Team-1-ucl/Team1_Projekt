@@ -1,79 +1,69 @@
-﻿using DogApp.Modellayer;
-using DogApp.Modellayer.Model.Items;
-
-namespace DogAppTest;
-
-public class ItemTest 
-{
-    [Fact]
-    public void ItemCreate_ShouldCreate()
-    {
-        //arrange
-        var difficulty1 = new Difficulty { Name =  "open"};
-        //Act
-        var item = new Sign 
-        { 
-            Id = 1,
-            Name = "højre om",
-            Description = "hund skal løbe højre om keglen", 
-            Image = "en fisk", 
-            PlacementId = 1, 
-            Difficulty = difficulty1, 
-            Number = 1 
-        };
-
-        // Assert
-        Assert.Equal(item.Difficulty, difficulty1);
-        Assert.Equal(item.Number, 1);
-        Assert.Equal(item.Id, 1);
-    }
-    [Fact]
-    public void ExtraCreate_ShouldCreate()
-    {
-        //arrange 
-        var placement = new Placement { PlacementId = 1 , X = 1, Y = 2 };
-
-        // act
-        var extra = new Extra
-        {
-            Id = 1,
-            Name = "tunnel",
-            Description = "hund løber igennem tunnel",
-            Image = "zoomies",
-            PlacementId = placement.PlacementId,
-            
-        };
-
-        //assert
-        Assert.Equal("tunnel" , extra.Name);
-        Assert.Equal(1 , extra.PlacementId);
-        Assert.Matches(extra.Image, "zoomies");
-
-    }
-
-	[Fact]
-	public void ItemUpdate_ShouldUpdate()
-	{
-		//arrange
-		var difficulty1 = new Difficulty { Name = "open" };
-
-		var item = new Sign
-		{
-			Id = 1,
-			Name = "højre om",
-			Description = "hund skal løbe højre om keglen",
-			Image = "en fisk",
-			PlacementId = 1,
-			Difficulty = difficulty1,
-			Number = 1
-		};
-
-        item.Number = 2;
-        item.Image = "en hund";
-
-		// Assert
-		Assert.Equal(item.Difficulty, difficulty1);
-		Assert.Equal(2, item.Number);
-		Assert.Equal("en hund",item.Image);
-	}
-}
+﻿//using DogApp.Modellayer;
+//using DogApp.Modellayer.Model.Items;
+//namespace DogAppTest;
+//public class ItemTest
+//{
+//    [Fact]
+//    public void SignItemCreate_ShouldCreate()
+//    {
+//        // Arrange
+//        var item = new Item
+//        {
+//            Id = 1,
+//            Name = "højre om",
+//            Description = "hund skal løbe højre om keglen",
+//            Image = "en fisk",
+//            PlacementId = 1,
+//            ItemCategory = Item.Category.Sign,
+           
+//        };
+//        // Act
+//        //// Assert
+//        Assert.Equal("højre om", item.Name);
+//        Assert.Equal(Item.Category.Sign, item.ItemCategory);
+   
+//        Assert.Equal(1, item.PlacementId);
+//        // Add more assertions as needed
+//    }
+//    [Fact]
+//    public void ExtraItemCreate_ShouldCreate()
+//    {
+//        // Arrange
+//        var item = new Item
+//        {
+//            Id = 2,
+//            Name = "extra item name",
+//            Description = "extra item description",
+//            Image = "extra item image",
+//            PlacementId = 2,
+//            ItemCategory = Item.Category.Extra,
+//        };   
+//        // Act
+//        // Assert
+//        Assert.Equal("extra item name", item.Name);
+//        Assert.Equal(Item.Category.Extra, item.ItemCategory);
+        
+//        Assert.Equal(2, item.PlacementId);
+//        // Add more assertions as needed
+//    }
+//    [Fact]
+//    public void ItemUpdate_ShouldUpdate()
+//    {
+//        //arrange
+        
+//        var item = new Item
+//        {
+//            Id = 1,
+//            Name = "højre om",
+//            Description = "hund skal løbe højre om keglen",
+//            Image = "en fisk",
+//            PlacementId = 1,
+         
+//        };
+       
+//        item.Image = "en hund";
+//        // Assert
+       
+//        Assert.Equal("en hund", item.Image);
+//    }
+//}

@@ -26,14 +26,17 @@ public class ItemList
     /// `[ForeignKey("Id")]` attribute indicating it references the Id property of the Item class, 
     /// establishing a one-to-many relationship between ItemList and Item objects.
     /// </summary>
-    [ForeignKey("Id")]
-    public ICollection<Item> Items { get; set; }
-
+        
+        
     /// <summary>
     /// Default constructor for the ItemList class. It initializes the Items collection with a new List object.
     /// </summary>
     public ItemList()
     {
-        Items = new List<Item>();
+        ItemItemLists = new List<ItemItemList>();
     }
+
+    [ForeignKey("Id")]
+    public ICollection<ItemItemList> ItemItemLists { get; set; }
+
 }
