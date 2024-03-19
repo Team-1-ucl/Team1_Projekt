@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240312130437_New")]
-    partial class New
+    [Migration("20240319160728_Remove")]
+    partial class Remove
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,129 +24,6 @@ namespace DogApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DogApp.Modellayer.Model.DateCreate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DatesCreate");
-                });
-
-            modelBuilder.Entity("DogApp.Modellayer.Model.ItemItemList", b =>
-                {
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemListId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemId", "ItemListId");
-
-                    b.HasIndex("ItemListId");
-
-                    b.ToTable("ItemItemLists");
-
-                    b.HasData(
-                        new
-                        {
-                            ItemId = 1,
-                            ItemListId = 1,
-                            Id = 1
-                        },
-                        new
-                        {
-                            ItemId = 2,
-                            ItemListId = 1,
-                            Id = 2
-                        },
-                        new
-                        {
-                            ItemId = 3,
-                            ItemListId = 1,
-                            Id = 3
-                        },
-                        new
-                        {
-                            ItemId = 4,
-                            ItemListId = 2,
-                            Id = 4
-                        },
-                        new
-                        {
-                            ItemId = 5,
-                            ItemListId = 2,
-                            Id = 5
-                        },
-                        new
-                        {
-                            ItemId = 6,
-                            ItemListId = 2,
-                            Id = 6
-                        },
-                        new
-                        {
-                            ItemId = 7,
-                            ItemListId = 3,
-                            Id = 7
-                        },
-                        new
-                        {
-                            ItemId = 8,
-                            ItemListId = 3,
-                            Id = 8
-                        },
-                        new
-                        {
-                            ItemId = 9,
-                            ItemListId = 3,
-                            Id = 9
-                        });
-                });
-
-            modelBuilder.Entity("DogApp.Modellayer.Model.ItemList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ItemLists");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Number = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Number = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Number = 0
-                        });
-                });
 
             modelBuilder.Entity("DogApp.Modellayer.Model.Items.Item", b =>
                 {
@@ -294,13 +171,7 @@ namespace DogApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DateId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemListId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -312,30 +183,22 @@ namespace DogApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DateId");
-
-                    b.HasIndex("ItemListId");
-
                     b.ToTable("Rally");
                 });
 
-            modelBuilder.Entity("DogApp.Modellayer.Model.ItemItemList", b =>
+            modelBuilder.Entity("ItemRally", b =>
                 {
-                    b.HasOne("DogApp.Modellayer.Model.Items.Item", "Item")
-                        .WithMany("ItemItemLists")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
 
-                    b.HasOne("DogApp.Modellayer.Model.ItemList", "ItemList")
-                        .WithMany("ItemItemLists")
-                        .HasForeignKey("ItemListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("RallyId")
+                        .HasColumnType("int");
 
-                    b.Navigation("Item");
+                    b.HasKey("ItemsId", "RallyId");
 
-                    b.Navigation("ItemList");
+                    b.HasIndex("RallyId");
+
+                    b.ToTable("ItemRally");
                 });
 
             modelBuilder.Entity("DogApp.Modellayer.Model.Items.Item", b =>
@@ -345,33 +208,19 @@ namespace DogApp.Migrations
                         .HasForeignKey("PlacementId");
                 });
 
-            modelBuilder.Entity("DogApp.Modellayer.Model.Rally", b =>
+            modelBuilder.Entity("ItemRally", b =>
                 {
-                    b.HasOne("DogApp.Modellayer.Model.DateCreate", "Date")
+                    b.HasOne("DogApp.Modellayer.Model.Items.Item", null)
                         .WithMany()
-                        .HasForeignKey("DateId")
+                        .HasForeignKey("ItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DogApp.Modellayer.Model.ItemList", "ItemList")
+                    b.HasOne("DogApp.Modellayer.Model.Rally", null)
                         .WithMany()
-                        .HasForeignKey("ItemListId")
+                        .HasForeignKey("RallyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Date");
-
-                    b.Navigation("ItemList");
-                });
-
-            modelBuilder.Entity("DogApp.Modellayer.Model.ItemList", b =>
-                {
-                    b.Navigation("ItemItemLists");
-                });
-
-            modelBuilder.Entity("DogApp.Modellayer.Model.Items.Item", b =>
-                {
-                    b.Navigation("ItemItemLists");
                 });
 
             modelBuilder.Entity("DogApp.Modellayer.Model.Items.Placement", b =>

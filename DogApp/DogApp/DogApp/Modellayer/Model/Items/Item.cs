@@ -37,6 +37,15 @@ namespace DogApp.Modellayer.Model.Items
         /// <summary>
         /// Gets or sets the navigation property for the item list the item belongs to.
         /// </summary>
-        public ICollection<ItemItemList> ItemItemLists { get; set; }
+        public ICollection<Rally> Rally { get; set; }
+
+        public Item()
+        {
+            
+        }
+        public Item(int id, string name)
+        {
+
+        }
     }
 }

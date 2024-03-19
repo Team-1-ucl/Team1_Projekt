@@ -1,4 +1,7 @@
-﻿namespace DogApp.Modellayer.Model;
+﻿using DogApp.Modellayer.Model.Items;
+using System.Collections.ObjectModel;
+
+namespace DogApp.Modellayer.Model;
 
 /// <summary>
 /// This class represents a Rally in an application. 
@@ -30,12 +33,7 @@ public class Rally
     /// <summary>
     /// An ItemList object containing items associated with the rally.
     /// </summary>
-    public ItemList ItemList { get; set; }
-
-    /// <summary>
-    /// A DateCreate object representing the date the rally was created.
-    /// </summary>
-    public DateCreate Date { get; set; }
+    public Collection<Item> Items  { get; set; }
 
     /// <summary>
     /// The category of the rally.
@@ -47,15 +45,4 @@ public class Rally
     {
     }
 
-    // Constructor that initializes all properties
-    public Rally(int id, string name, int height, int width, ItemList itemlist, DateCreate date, string category)
-    {
-        Id = id;
-        Name = name;
-        Height = height;
-        Width = width;
-        ItemList = itemlist;
-        Date = date;
-        Category = category;
-    }
 }
