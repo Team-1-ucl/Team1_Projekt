@@ -1,6 +1,5 @@
 using DogApp.Data;
-using DogApp.Modellayer.Model;
-using DogApp.Modellayer.Model.Items;
+using DogApp.Modellayer.EntityModels;
 using DogRallyApp.ModelLayer.Repositories;
 
 namespace DogApp.Modellayer.Repositories;

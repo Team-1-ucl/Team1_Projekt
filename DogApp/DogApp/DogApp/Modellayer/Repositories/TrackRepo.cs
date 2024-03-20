@@ -1,13 +1,13 @@
 ﻿using DogApp.Data;
+using DogApp.Modellayer.EntityModels;
 using DogApp.Modellayer.Model;
-using DogApp.Modellayer.Model.Items;
 using DogRallyApp.ModelLayer.Repositories;
 
 namespace DogApp.Modellayer.Repositories;
 
-public class ItemListRepo : GenericRepository<ItemList>
+public class TrackRepo : GenericRepository<Track>
 {
-    public ItemListRepo(DataContext context) : base(context)
+    public TrackRepo(DataContext context) : base(context)
     {
     }
 }
