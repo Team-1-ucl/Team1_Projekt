@@ -1,0 +1,118 @@
+@startuml DCDv2
+title DCD
+skinparam nodesep 20
+skinparam ranksep 50
+skinparam linetype polyline
+skinparam dpi 300
+skinparam ComponentBorderThickness 0
+skinparam BackgroundColor lightgrey
+skinparam ComponentBackgroundColor white
+skinparam ComponentBorderColor white
+skinparam PackageBorderColor white
+package Controller{
+    class HomeController{
+
+    }
+}
+
+package services{
+    interface ITrackService
+    class TrackService
+}
+package Models{
+    package EntityModels{
+        abstract class BaseEntity{
+            -- Properties --
+            + {abstract}<<abstract>> Id : int
+            + {abstract}<<abstract>> Name : string
+        }
+        entity Track<Bane>{
+            -- Properties --
+            + <<get, set>> Height : float
+            + <<get, set>> Width : float
+            ==Navigation Properties==
+            + TrackItems : TrackItem[0..*]
+        }
+        entity TrackItem{
+            -- Fields --
+            + Id : int
+            + Item? : Item
+            + ItemId : int
+
+            + Track? :  track
+            + TrackId : int
+            -- Payload --
+            + <<get, set>> X : float
+            + <<get, set>> Y : float
+            + <<get, set>> Order : int
+        }
+        entity Item<Bane Element>{
+            -- Properties --
+            + <<get, set>> Category : Category
+            + <<get, set>> Description : string
+            + <<get, set>> Image : string
+            + <<get, set>> Placement : Placement
+            + <<get, set>> Difficulty : string
+            ==Navigation Properties==
+            + TrackItems : TrackItems[0..*]
+        }
+    }
+    package Data{
+        class "DbContext"{
+            --Properties--
+            + Tracks : DbSet<Track>
+            + Items : DbSet<Item>
+            + TrackItems : Dbset<TrackItems>
+            --Methods--
+            + OnConfiguring(DbContextOptionbuilder optionsBuilder)
+            + OnModelCreating(ModelBuilder modelbuilder)
+        }
+    }
+    package Repositories{
+        class "GenericRepository"{
+            --Methods--
+            + Get(): IReadOnlyList<T>
+            + GetById(int id) <T>
+            + Create(T entity) : void
+            + Update(T entity) : void
+            + Delete(T entity) : void
+        }
+
+        interface "IGenericRepository"{
+            --Methods--
+            + Get(): IReadOnlyList<T>
+            + GetById(int id) <T>
+            + Create(T entity) : void
+            + Update(T entity) : void
+            + Delete(T entity) : void
+        }
+        
+        class "ItemRepo"{
+
+        }
+        class "TrackRepo"{
+
+        }
+        
+    }
+    
+}
+
+note right of TrackService : Denne skal indeholde det\nsom laver et track 
+
+IGenericRepository  <.. GenericRepository
+IGenericRepository --> DbContext
+GenericRepository <-- ItemRepo
+GenericRepository <-- TrackRepo
+HomeController -|> ITrackService
+ITrackService <-- TrackService
+BaseEntity  <- Track
+BaseEntity <- Item
+Track <|--|> TrackItem
+TrackItem <|--|> Item
+HomeController - IGenericRepository
+DbContext - Track
+DbContext - TrackItem
+DbContext - Item
+
+@enduml
