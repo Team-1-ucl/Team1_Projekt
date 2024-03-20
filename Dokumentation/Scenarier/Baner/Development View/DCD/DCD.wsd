@@ -10,6 +10,7 @@ skinparam ComponentBackgroundColor white
 skinparam ComponentBorderColor white
 skinparam PackageBorderColor white
 
+
 package Model_layer #White {
     package Data #LightBlue{
         class "DbContext"{
@@ -41,20 +42,14 @@ package Model_layer #White {
             + Update(T entity) : void
             + Delete(T entity) : void
         }
-        note top of RallyRepo : rally, sign and extra repo \n inherits from Generic Repository
-        class "RallyRepo"{
-        }
-        class "SignRepo"{
-        }
-        class "ExtraRepo"{
+        
+        class "ItemRepo"{
         }
         class "ItemListRepo"{
         
         }
         
-        circle "Model Connection" as ExtraModelConnection{}
-        circle "Model Connection" as RallyModelConnection{}
-        circle "Model Connection" as SignModelConnection{}
+        circle "Model Connection" as ItemModelConnection{}
         circle "Model Connection" as ItemListModelConnection{}
  
     }
@@ -73,7 +68,6 @@ package Model_layer #White {
             ==Constructor==
             + Rally()
             + Rally(Name, Height, Width, Level, ItemList, Date)
-
         }
         
         class "DateCreate"{
@@ -83,61 +77,42 @@ package Model_layer #White {
         }
 
         circle "Repo Connection" as ItemListConnection{}
+        
         class "ItemList"{
             --Properties--
             + Id : int
-            + Items : List<Item>
-            + Number : int
-            + Sign : Sign
-            + Extra : Extra
-            
-            
+            + ItemNumber : int
+            + ItemItemList : ItemItemList
         }
 
         package items #LightSkyBlue {
-            circle "Repo Connection" as ExtraRepoConnection{}
-            circle "Repo Connection" as SignRepoConnection{}
             
+            circle "Repo Connection" as ItemRepoConnection{}
+            class ItemItemList {
+                + Id : int
+                + ItemId : int
+                + Item : Item
+                + ItemListId : int
+                + ItemList : ItemList
 
-            class "Difficulty"{
-                --Properties--
-                + Id : int
-                + name : string
+
             }
-            abstract class Item <<abstract class>>{
+            class Item {
                 --Properties--
                 + Id : int
-                + Description : string
-                + Image : string
-                + Placement : Placement
-                
-            }
-            class "Extra"{
-                ..Properties from Item..
-                + Id : int
-                + Description : string
-                + Image : string
-                + Placement : Placement
-                __
-                --Properties--
+                + Category : Category
                 + Name : string
-                ==Constructor==
-                + Extra(Id : int,Description : string, Image : string,\nPlacement : Placement, Name : string)
-            }
-            class "Sign"{
-                ..Properties from Item..
-                + Id : int
                 + Description : string
                 + Image : string
                 + Placement : Placement
-                __
-                --Properties--
-                + Number : int
-                + Difficulty : Difficulty
-                ==Constructor==
-                + Sign(Id : int, Description : string, Image : string,\n Placement : Placement, Number : int, Difficulty : Difficulty)
-
-            }   
+                + Difficulty : string
+                + Itemlists : ItemItemList[0..*]
+            }
+            enum Categroy{
+                sign,
+                extra,
+            }
+              
             class "Placement"{
                 --Properties--
                 + Id : int
@@ -163,17 +138,14 @@ package View #white{
     }
 }
 
-RallyRepo --> GenericRepository
 ItemListRepo --> GenericRepository
-ExtraRepo --> GenericRepository
-SignRepo --> GenericRepository
+ItemRepo --> GenericRepository
 GenericRepository --> IGenericRepository
 IGenericRepository--> DbContext
-ExtraRepoConnection .. Extra
-ExtraModelConnection . ExtraRepo
-SignRepoConnection .. Sign
-SignModelConnection . SignRepo
-RallyModelConnection . RallyRepo
+ItemModelConnection -> ItemRepo
+ItemRepoConnection .. Item
+
+
 RallyRepoConnection . Rally
 ItemListModelConnection . ItemListRepo
 ItemListConnection . ItemList
@@ -181,11 +153,11 @@ ItemListConnection . ItemList
 
 Rally --|>  DateCreate
 Rally --|> ItemList
-ItemList --|> Item
-Item <-- Sign
-Item <-- Extra
-Sign  --|> Placement
-Difficulty <|-- Sign
-Extra  --|> Placement
+ItemItemList --|> Item
+ItemList -- ItemItemList
+
+Item --|> Placement
+Categroy .. Item
+
 
 @enduml

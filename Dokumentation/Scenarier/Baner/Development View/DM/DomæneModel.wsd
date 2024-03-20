@@ -1,5 +1,7 @@
 @startuml DomæneModel
 title Domæne Model
+
+
 class "Bane"{
     Navn
     Højde
@@ -26,6 +28,7 @@ class "Placering"{
     X_Koordinat
     Y_Koordinat
 }
+
 
 
 Bane "1" -- "1..*" Skilte: > Indeholder
