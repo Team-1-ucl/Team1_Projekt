@@ -17,7 +17,7 @@ public class Item :BaseEntity
     /// <summary>
     /// Gets or sets the path to an image representing the item.
     /// </summary>
-    public string Image { get; set; }
+    public string Image { get; set; } 
     /// <summary>
     /// Gets or sets the foreign key referencing the placement of the item.
     /// </summary>
