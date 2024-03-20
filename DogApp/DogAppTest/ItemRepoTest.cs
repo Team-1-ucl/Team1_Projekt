@@ -1,5 +1,5 @@
 ﻿using DogApp.Data;
-using DogApp.Modellayer.Model.Items;
+using DogApp.Modellayer.EntityModels;
 using DogApp.Modellayer.Repositories;
 using DogApp.ModelLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,7 @@ namespace DogAppTest
 
             // act
             await _itemRepository.AddAsync(item);
-
+            await _context.SaveChangesAsync();
             // assert
             Assert.Equal("hest", item.Image);
         }

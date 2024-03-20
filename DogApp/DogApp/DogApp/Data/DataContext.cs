@@ -1,5 +1,5 @@
-﻿using DogApp.Modellayer.Model.Items;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using DogApp.Modellayer.EntityModels;
 using DogApp.Modellayer.Model;
 
 namespace DogApp.Data
@@ -12,9 +12,11 @@ namespace DogApp.Data
             Database.EnsureCreated();
         }
       
-        public DbSet<Rally> Rally {get; set; }
+        public DbSet<Track> Track {get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Placement> Placements { get; set; }
+        public DbSet<TrackItem> TrackItems { get; set; }
+
+        
 
 
 

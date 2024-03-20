@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogApp", "DogApp\DogApp\Dog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogApp.Client", "DogApp\DogApp.Client\DogApp.Client.csproj", "{8B3C8C52-A468-4199-A38F-05757D2EACA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogAppTest", "DogAppTest\DogAppTest.csproj", "{A79FA07E-99D2-460C-BD15-56DDEE3420BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogAppTest", "DogAppTest\DogAppTest.csproj", "{A79FA07E-99D2-460C-BD15-56DDEE3420BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

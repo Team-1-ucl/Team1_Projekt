@@ -1,4 +1,4 @@
-﻿using DogApp.Modellayer.Model.Items;
+﻿using DogApp.Modellayer.EntityModels;
 using System.Collections.ObjectModel;
 
 namespace DogApp.Modellayer.Model;
@@ -8,19 +8,9 @@ namespace DogApp.Modellayer.Model;
 /// 
 /// Rallies likely refer to a collection of items or data points with some sort of spatial or organizational relationship.
 /// </summary>
-public class Rally
+public class Track : BaseEntity
 {
-    /// <summary>
-    /// Unique identifier for the rally.
-    /// </summary>
-    public int Id { get; set; }
-
-    /// <summary>
-    /// Human-readable name of the rally.
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
+        /// <summary>
     /// Height of the rally (likely in pixels or some other unit).
     /// </summary>
     public int Height { get; set; }
@@ -33,7 +23,7 @@ public class Rally
     /// <summary>
     /// An ItemList object containing items associated with the rally.
     /// </summary>
-    public Collection<Item> Items  { get; set; }
+    public Collection<TrackItem> TrackItems  { get; set; }
 
     /// <summary>
     /// The category of the rally.
@@ -41,8 +31,5 @@ public class Rally
     public string Category { get; set; }
 
     // Default constructor
-    public Rally()
-    {
-    }
-
+    
 }
