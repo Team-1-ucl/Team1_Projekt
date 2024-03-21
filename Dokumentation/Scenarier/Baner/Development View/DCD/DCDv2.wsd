@@ -9,17 +9,34 @@ skinparam BackgroundColor lightgrey
 skinparam ComponentBackgroundColor white
 skinparam ComponentBorderColor white
 skinparam PackageBorderColor white
-package Controller{
+rectangle "MVC / SPA" as front{
     class HomeController{
+        -- Fields --
 
+        -- Methods --
+        
+        --Constructor--
+        HomeController()
     }
 }
-
-package services{
-    interface ITrackService
-    class TrackService
+rectangle API{
+    class API{}
 }
-package Models{
+
+rectangle Services{
+    interface ITrackService{
+        -- Methods --
+        + UpdateTrack(track Track) : void
+        + SaveTrack(track Track) : void
+    }
+
+    class TrackService{
+        -- Methods --
+        + UpdateTrack(track Track) : void
+        + SaveTrack(track Track) : void
+    }
+}
+rectangle "Data" as models{
     package EntityModels{
         abstract class BaseEntity{
             -- Properties --
@@ -98,21 +115,22 @@ package Models{
     
 }
 
-note right of TrackService : Denne skal indeholde det\nsom laver et track 
+note left of TrackService : Denne skal indeholde det\nsom laver et track 
 
 IGenericRepository  <.. GenericRepository
 IGenericRepository --> DbContext
 GenericRepository <-- ItemRepo
 GenericRepository <-- TrackRepo
-HomeController -|> ITrackService
+HomeController -down- API
+ITrackService - API
 ITrackService <-- TrackService
+IGenericRepository - TrackService 
 BaseEntity  <- Track
 BaseEntity <- Item
 Track <|--|> TrackItem
 TrackItem <|--|> Item
-HomeController - IGenericRepository
-DbContext - Track
-DbContext - TrackItem
-DbContext - Item
+DbContext -|> Track
+DbContext -|> TrackItem
+DbContext -|> Item
 
 @enduml

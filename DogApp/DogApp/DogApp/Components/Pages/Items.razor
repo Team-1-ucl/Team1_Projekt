@@ -1,0 +1,132 @@
+﻿@page "/items"
+@using DogApp.Modellayer.EntityModels
+@attribute [StreamRendering(true)]
+@rendermode InteractiveServer
+@inject DogApp.Modellayer.Repositories.IItemRepo ItemRepository
+
+
+<h3>Denne bane har følgende elementer</h3>
+
+@if (items != null)
+{
+    <div class=" container text-left">
+        <div class="row align-items-start">
+
+            <div class="col">
+
+                <h1>Signs</h1>
+                <ul>
+                    @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Sign))
+                    {
+                        <li><b>@item.Name</b></li>
+                        <li>@item.Id</li>
+                        <li>@item.Description</li>
+                        <button class="button-edit" @onclick="() => EditItem(item)">Edit</button>
+                        <button class="button-delete" @onclick="() => DeleteItem(item)">Delete</button>
+                    }
+                </ul>
+            </div>
+            <div class="col">
+                <h1>Extras</h1>
+                <ul>
+                    @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Extra))
+                    {
+                        <li><b>@item.Name</b></li>
+                        <li>@item.Description</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+
+
+@code {
+    List<DogApp.Modellayer.EntityModels.Item> items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Retrieve the list of items from the repository
+        items = await ItemRepository.GetAllAsync();
+
+    }
+
+    public async Task EditItem(Item item)
+    {
+        await ItemRepository.UpdateAsync(item);
+    }
+    public async Task DeleteItem(Item item)
+    {
+        await ItemRepository.DeleteAsync(item);
+        items.Remove(item);
+        StateHasChanged();
+    }
+}
+
+<style>
+    
+    
+    .button-edit {
+        background: #5E5DF0;
+        border-radius: 999px;
+        box-shadow: #5E5DF0 0 10px 20px -10px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        opacity: 1;
+        outline: 0 solid transparent;
+        padding: 8px 18px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: fit-content;
+        word-break: break-word;
+        border: 0;
+    }
+    
+    .button-delete {
+        background: #FF4742;
+        border: 1px solid #FF4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+    }
+
+    .button-24:hover,
+    .button-24:active {
+        background-color: initial;
+        background-position: 0 0;
+        color: #FF4742;
+    }
+
+    .button-24:active {
+        opacity: .5;
+    }
+
+</style>
