@@ -1,0 +1,45 @@
+﻿@page "/edititem/{id:int}"
+@using DogApp.Modellayer.EntityModels
+@inject DogApp.Modellayer.Repositories.IItemRepo ItemRepository
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<h3>Edit Item</h3>
+
+@if (item != null)
+{
+    <form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" class="form-control" @bind="item.Name" />
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input id="description" class="form-control" @bind="item.Description" />
+        </div>
+
+        <button type="button" class="btn btn-primary" @onclick="SaveChanges">Save Changes</button>
+    </form>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    Item item;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        item = await ItemRepository.GetByIdAsync(Id);
+    }
+
+    private async Task SaveChanges()
+    {
+        await ItemRepository.UpdateAsync(item);
+        NavigationManager.NavigateTo("/items");
+    }
+}

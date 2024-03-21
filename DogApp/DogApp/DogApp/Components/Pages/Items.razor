@@ -18,9 +18,10 @@
                 <ul>
                     @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Sign))
                     {
-                        <li><b>@item.Name</b></li>
                         <li>@item.Id</li>
+                        <li><b>@item.Name</b></li>
                         <li>@item.Description</li>
+                        <li>@item.Image</li>
                         <button class="button-edit" @onclick="() => EditItem(item)">Edit</button>
                         <button class="button-delete" @onclick="() => DeleteItem(item)">Delete</button>
                     }
@@ -49,6 +50,9 @@ else
 @code {
     List<DogApp.Modellayer.EntityModels.Item> items;
 
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         // Retrieve the list of items from the repository
@@ -58,7 +62,7 @@ else
 
     public async Task EditItem(Item item)
     {
-        await ItemRepository.UpdateAsync(item);
+        NavigationManager.NavigateTo($"/edititem/{item.Id}");
     }
     public async Task DeleteItem(Item item)
     {
@@ -66,6 +70,7 @@ else
         items.Remove(item);
         StateHasChanged();
     }
+ 
 }
 
 <style>
