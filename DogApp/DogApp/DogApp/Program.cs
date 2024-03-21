@@ -1,6 +1,6 @@
-using DogApp.Client.Pages;
 using DogApp.Components;
 using DogApp.Data;
+using DogApp.Modellayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DogApp
@@ -23,6 +23,9 @@ namespace DogApp
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
+            builder.Services.AddScoped<IItemRepo, ItemRepo>();
+            builder.Services.AddRazorComponents()
+                .AddInteractiveWebAssemblyComponents();
 
             var app = builder.Build();
 
@@ -46,8 +49,7 @@ namespace DogApp
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode()
-                .AddInteractiveWebAssemblyRenderMode()
-                .AddAdditionalAssemblies(typeof(Client._Imports).Assembly);
+                .AddInteractiveWebAssemblyRenderMode();
 
             app.Run();
         }
