@@ -155,7 +155,7 @@ namespace DogApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Track");
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("DogApp.Modellayer.Model.TrackItem", b =>

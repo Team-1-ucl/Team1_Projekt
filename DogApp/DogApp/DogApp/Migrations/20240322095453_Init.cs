@@ -7,7 +7,7 @@
 namespace DogApp.Migrations
 {
     /// <inheritdoc />
-    public partial class New : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,7 +29,7 @@ namespace DogApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Track",
+                name: "Tracks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -41,7 +41,7 @@ namespace DogApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Track", x => x.Id);
+                    table.PrimaryKey("PK_Tracks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,9 +66,9 @@ namespace DogApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TrackItems_Track_Trackid",
+                        name: "FK_TrackItems_Tracks_Trackid",
                         column: x => x.Trackid,
-                        principalTable: "Track",
+                        principalTable: "Tracks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -111,7 +111,7 @@ namespace DogApp.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Track");
+                name: "Tracks");
         }
     }
 }
