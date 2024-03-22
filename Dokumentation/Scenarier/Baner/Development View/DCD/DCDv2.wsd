@@ -10,32 +10,34 @@ skinparam ComponentBackgroundColor white
 skinparam ComponentBorderColor white
 skinparam PackageBorderColor white
 rectangle "MVC / SPA" as front{
-    class HomeController{
+    class ItemController{
         -- Fields --
-
-        -- Methods --
-        
+        - <<readonly>> _itemRepository : IItemRepo
         --Constructor--
-        HomeController()
+        + ItemController(itemRepo : IItemRepo)
+        -- Methods --
+        + <<async>> GetAllItemsAsync() : Task<Item[1..*]>
+        + <<async>> DeleteItem(item : Item) : Task
+        + <<async>> GetByIdAsync(Id : int) : Task<Item>
+        + <<async>> UpdateAsync(item : Item) : Task
+        
     }
-}
-rectangle API{
-    class API{}
+    class TrackController{
+        -- Fields --
+        - <<readonly>> _trackRepository : ITrackRepo
+        --Constructor--
+        + TrackController(trackRepo : ITrackRepo)
+        -- Methods --
+        + <<async>> GetAllTrackAsync() : Task<Track[1..*]>
+        + <<async>> DeleteTrack(track : Track) : Task
+        + <<async>> GetByIdAsync(Id : int) : Task<Track>
+        + <<async>> UpdateAsync(track : Track) : Task
+        
+    }   
 }
 
-rectangle Services{
-    interface ITrackService{
-        -- Methods --
-        + UpdateTrack(track Track) : void
-        + SaveTrack(track Track) : void
-    }
 
-    class TrackService{
-        -- Methods --
-        + UpdateTrack(track Track) : void
-        + SaveTrack(track Track) : void
-    }
-}
+
 rectangle "Data" as models{
     package EntityModels{
         abstract class BaseEntity{
@@ -103,7 +105,8 @@ rectangle "Data" as models{
             + Update(T entity) : void
             + Delete(T entity) : void
         }
-        
+        interface IItemRepo
+        interface ITrackRepo
         class "ItemRepo"{
 
         }
@@ -115,16 +118,17 @@ rectangle "Data" as models{
     
 }
 
-note left of TrackService : Denne skal indeholde det\nsom laver et track 
 
 IGenericRepository  <.. GenericRepository
 IGenericRepository --> DbContext
-GenericRepository <-- ItemRepo
-GenericRepository <-- TrackRepo
-HomeController -down- API
-ITrackService - API
-ITrackService <-- TrackService
-IGenericRepository - TrackService 
+GenericRepository <-- IItemRepo
+GenericRepository <-- ITrackRepo
+ITrackRepo <-- TrackRepo
+IItemRepo <-- ItemRepo
+
+ItemController -- IItemRepo
+TrackController -- ITrackRepo
+
 BaseEntity  <- Track
 BaseEntity <- Item
 Track <|--|> TrackItem
