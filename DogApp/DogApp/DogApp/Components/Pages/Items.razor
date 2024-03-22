@@ -4,7 +4,6 @@
 @rendermode InteractiveServer
 @inject DogApp.Modellayer.Repositories.IItemRepo ItemRepository
 
-
 <h3>Denne bane har følgende elementer</h3>
 
 @if (items != null)
@@ -33,8 +32,8 @@
                             <div class="row">
                                 <div class="col"></div>
                                 <div class="col-md-8" align="right">
-                                    <button class="button-4"  @onclick="() => EditItem(item)">Ændre</button>
-                                    <button class="button-4"  @onclick="() => DeleteItem(item)">Slet</button>
+                                    <button class="button-4" @onclick="() => EditItem(item)">Ændre</button>
+                                    <button class="button-4" @onclick="() => DeleteItem(item)">Slet</button>
                                 </div>
                             </div>
                         </div>
@@ -44,35 +43,35 @@
 
             <div class="col">
                 <h1>Extras</h1>
-                    @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Extra))
-                    {
-                        <div class="container text-left">
-                            <div class="item-box">
-                                <div class="row">
-                                    <div class="col">Navn: <b>@item.Name</b> </div>
-                                    <div class="col" style="vertical-align: top;" align="right">@item.Id</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8 offset-md-1"> @item.Description</div>
-                                    <div class="col"></div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-8 offset-md-1">@item.Image</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col"></div>
-                                    <div class="col-md-8" align="right">
-                                        <button class="button-4" @onclick="() => EditItem(item)">Ændre</button>
-                                        <button class="button-4" @onclick="() => DeleteItem(item)">Slet</button>
-                                    </div>
-                                </div>
+                @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Extra))
+                {
+                    <div class="container text-left">
+                        <div class="item-box">
+                            <div class="row">
+                                <div class="col">Navn: <b>@item.Name</b> </div>
+                                <div class="col" style="vertical-align: top;" align="right">@item.Id</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 offset-md-1"> @item.Description</div>
+                                <div class="col"></div>
 
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-8 offset-md-1">@item.Image</div>
+                            </div>
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-md-8" align="right">
+                                    <button class="button-4" @onclick="() => EditItem(item)">Ændre</button>
+                                    <button class="button-4" @onclick="() => DeleteItem(item)">Slet</button>
+                                </div>
+                            </div>
+
                         </div>
-                    }
+
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -85,10 +84,10 @@ else
 
 
 @code {
-    List<DogApp.Modellayer.EntityModels.Item> items;
+    List<DogApp.Modellayer.EntityModels.Item>? items;
 
     [Inject]
-    NavigationManager NavigationManager { get; set; }
+    NavigationManager? NavigationManager { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -97,14 +96,27 @@ else
 
     }
 
+
     public async Task EditItem(Item item)
     {
-        NavigationManager.NavigateTo($"/edititem/{item.Id}");
+        await Task.Yield();
+        if (NavigationManager != null)
+        {
+            NavigationManager.NavigateTo($"/edititem/{item.Id}");
+        }
     }
+
+
+
+
     public async Task DeleteItem(Item item)
     {
         await ItemRepository.DeleteAsync(item);
-        items.Remove(item);
+        if (items != null)
+        {
+            items.Remove(item);
+        }
+
         StateHasChanged();
     }
 
@@ -131,7 +143,6 @@ else
         justify-content: space-between; /* Align items at the beginning and end of the container */
         height: 100%; /* Ensure item box takes full height */
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-
     }
 
     .item-id {
