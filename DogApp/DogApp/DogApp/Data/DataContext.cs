@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DogApp.Modellayer.EntityModels;
-using DogApp.Modellayer.Model;
+
 
 namespace DogApp.Data
 {
@@ -41,6 +41,12 @@ namespace DogApp.Data
                 new Item { Id = 9, Name = "Extra 4", Description = "Description of Extra 4", Image = "hest", ItemCategory = Item.Category.Extra },
                 new Item { Id = 10, Name = "Extra 5", Description = "Description of Extra 5", Image = "hest", ItemCategory = Item.Category.Extra }
             );
+
+            modelBuilder.Entity<Track>().HasData(
+               new Track { Id = 1, Name = "Rally 1", Height = 100, Width = 200, Category = "Category A" },
+                new Track { Id = 2, Name = "Rally 2", Height = 150, Width = 250, Category = "Category B" },
+                new Track { Id = 3, Name = "Rally 3", Height = 120, Width = 180, Category = "Category C" }
+                );
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DogApp.Modellayer.Model;
+namespace DogApp.Modellayer.EntityModels;
 
 public class TrackItem
 
