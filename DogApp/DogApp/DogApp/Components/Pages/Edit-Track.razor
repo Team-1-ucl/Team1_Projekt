@@ -1,0 +1,42 @@
+﻿@page "/edittrack/{id:int}"
+@using DogApp.Controller
+@using DogApp.Modellayer.EntityModels
+@inject DogApp.Modellayer.Repositories.ITrackRepo TrackRepository
+@inject NavigationManager NavigationManager
+@inject TrackController TrackController
+@rendermode InteractiveServer
+
+
+<h3>Opdater Banen</h3>
+@if (track != null)
+{
+    <form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" class="form-control" @bind="track.Name" />
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="SaveChanges">Save Changes</button>
+    </form>
+}
+else
+{
+    <p>Loading...</p>
+}
+@code {
+    Track? track;
+
+    [Parameter]
+    public int Id { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        track = await TrackController.GetByIdAsync(Id);
+    }
+    private async Task SaveChanges()
+    {
+        if (track != null)
+        {
+            await TrackController.UpdateAsync(track);
+        }
+        NavigationManager.NavigateTo("/tracks");
+    }
+}
