@@ -30,6 +30,9 @@ public class Track : BaseEntity
     /// </summary>
     public string Category { get; set; }
 
-    // Default constructor
-    
+    public Track()
+    {
+        
+    }
+
 }

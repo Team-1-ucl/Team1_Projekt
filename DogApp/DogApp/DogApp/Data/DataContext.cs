@@ -12,7 +12,7 @@ namespace DogApp.Data
             Database.EnsureCreated();
         }
       
-        public DbSet<Track> Track {get; set; }
+        public DbSet<Track> Tracks {get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<TrackItem> TrackItems { get; set; }
 
