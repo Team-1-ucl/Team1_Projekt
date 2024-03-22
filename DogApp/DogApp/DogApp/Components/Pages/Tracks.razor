@@ -1,10 +1,9 @@
 ﻿@page "/tracks"
 @using DogApp.Modellayer.EntityModels
+@using DogApp.Controller
 @attribute [StreamRendering(true)]
 @rendermode InteractiveServer
-@inject DogApp.Modellayer.Repositories.ITrackRepo TrackRepository
-
-
+@inject TrackController TrackController
 
 <h3>Mine Baner</h3>
 
@@ -21,7 +20,7 @@
                     {
                         <li>@track.Id</li>
                         <li><b>@track.Name</b></li>
-                        <button class="button-edit" @onclick="() => EditItem(track)">Edit</button>
+                        <button class="button-edit" @onclick="() => EditTrack(track)">Edit</button>
                        
                     }
                 </ul>
@@ -41,11 +40,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        tracks = await TrackRepository.GetAllAsync();
+        tracks = await TrackController.GetAllTracksAsync();
     }
-    public async Task EditItem(Track track)
+    public async Task EditTrack(Track track)
     {
-        NavigationManager.NavigateTo($"/edititem/{track.Id}");
+        NavigationManager.NavigateTo($"/editTrack/{track.Id}");
     }
 }
 

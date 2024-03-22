@@ -7,7 +7,7 @@
 namespace DogApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class TrackSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -88,6 +88,16 @@ namespace DogApp.Migrations
                     { 8, "Description of Extra 3", "hest", 1, "Extra 3" },
                     { 9, "Description of Extra 4", "hest", 1, "Extra 4" },
                     { 10, "Description of Extra 5", "hest", 1, "Extra 5" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tracks",
+                columns: new[] { "Id", "Category", "Height", "Name", "Width" },
+                values: new object[,]
+                {
+                    { 1, "Category A", 100, "Rally 1", 200 },
+                    { 2, "Category B", 150, "Rally 2", 250 },
+                    { 3, "Category C", 120, "Rally 3", 180 }
                 });
 
             migrationBuilder.CreateIndex(

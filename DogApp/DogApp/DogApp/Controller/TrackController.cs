@@ -17,7 +17,7 @@ namespace DogApp.Controller
             _trackRepository = trackRepository;
         }
 
-        public async Task<List<Track>> GetAllItemsAsync()
+        public async Task<List<Track>> GetAllTracksAsync()
         {
             return await _trackRepository.GetAllAsync();
         }
