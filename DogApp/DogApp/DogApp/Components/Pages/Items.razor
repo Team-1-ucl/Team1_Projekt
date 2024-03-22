@@ -1,8 +1,10 @@
 ﻿@page "/items"
+@using DogApp.Controller
 @using DogApp.Modellayer.EntityModels
 @attribute [StreamRendering(true)]
 @rendermode InteractiveServer
 @inject DogApp.Modellayer.Repositories.IItemRepo ItemRepository
+@inject ItemController ItemController
 
 <h3>Denne bane har følgende elementer</h3>
 
@@ -84,15 +86,17 @@ else
 
 
 @code {
-    List<DogApp.Modellayer.EntityModels.Item>? items;
+    private List<Item>? items;
 
     [Inject]
     NavigationManager? NavigationManager { get; set; }
 
+
     protected override async Task OnInitializedAsync()
     {
         // Retrieve the list of items from the repository
-        items = await ItemRepository.GetAllAsync();
+        // items = await ItemRepository.GetAllAsync();
+        items = await ItemController.GetAllItemsAsync();
 
     }
 
@@ -111,7 +115,8 @@ else
 
     public async Task DeleteItem(Item item)
     {
-        await ItemRepository.DeleteAsync(item);
+        await ItemController.DeleteItem(item);
+        
         if (items != null)
         {
             items.Remove(item);

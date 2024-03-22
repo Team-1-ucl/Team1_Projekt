@@ -1,8 +1,11 @@
 ﻿@page "/edititem/{id:int}"
+@using DogApp.Controller
 @using DogApp.Modellayer.EntityModels
 @inject DogApp.Modellayer.Repositories.IItemRepo ItemRepository
 @inject NavigationManager NavigationManager
+@inject ItemController ItemController
 @rendermode InteractiveServer
+
 
 <h3>Edit Item</h3>
 
@@ -34,14 +37,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        item = await ItemRepository.GetByIdAsync(Id);
+        item = await ItemController.GetByIdAsync(Id);
     }
 
     private async Task SaveChanges()
     {
         if (item != null)
         {
-            await ItemRepository.UpdateAsync(item);
+            await ItemController.UpdateAsync(item);
         }
 
         NavigationManager.NavigateTo("/items");
