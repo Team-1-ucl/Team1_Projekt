@@ -4,38 +4,74 @@
 @rendermode InteractiveServer
 @inject DogApp.Modellayer.Repositories.IItemRepo ItemRepository
 
-
 <h3>Denne bane har følgende elementer</h3>
 
 @if (items != null)
 {
-    <div class=" container text-left">
+    <div class="container text-left">
         <div class="row align-items-start">
-
             <div class="col">
+                <h1>Aktive Elementer</h1>
+                @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Sign))
+                {
+                    <div class="container text-left">
+                        <div class="item-box">
+                            <div class="row">
+                                <div class="col">Navn: <b>@item.Name</b> </div>
+                                <div class="col" style="vertical-align: top;" align="right">@item.Id</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 offset-md-1"> @item.Description</div>
+                                <div class="col"></div>
 
-                <h1>Signs</h1>
-                <ul>
-                    @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Sign))
-                    {
-                        <li>@item.Id</li>
-                        <li><b>@item.Name</b></li>
-                        <li>@item.Description</li>
-                        <li>@item.Image</li>
-                        <button class="button-edit" @onclick="() => EditItem(item)">Edit</button>
-                        <button class="button-delete" @onclick="() => DeleteItem(item)">Delete</button>
-                    }
-                </ul>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8 offset-md-1">@item.Image</div>
+                            </div>
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-md-8" align="right">
+                                    <button class="button-4" @onclick="() => EditItem(item)">Ændre</button>
+                                    <button class="button-4" @onclick="() => DeleteItem(item)">Slet</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+
             <div class="col">
                 <h1>Extras</h1>
-                <ul>
-                    @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Extra))
-                    {
-                        <li><b>@item.Name</b></li>
-                        <li>@item.Description</li>
-                    }
-                </ul>
+                @foreach (var item in items.Where(x => x.ItemCategory == Modellayer.EntityModels.Item.Category.Extra))
+                {
+                    <div class="container text-left">
+                        <div class="item-box">
+                            <div class="row">
+                                <div class="col">Navn: <b>@item.Name</b> </div>
+                                <div class="col" style="vertical-align: top;" align="right">@item.Id</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 offset-md-1"> @item.Description</div>
+                                <div class="col"></div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8 offset-md-1">@item.Image</div>
+                            </div>
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-md-8" align="right">
+                                    <button class="button-4" @onclick="() => EditItem(item)">Ændre</button>
+                                    <button class="button-4" @onclick="() => DeleteItem(item)">Slet</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -48,10 +84,10 @@ else
 
 
 @code {
-    List<DogApp.Modellayer.EntityModels.Item> items;
+    List<DogApp.Modellayer.EntityModels.Item>? items;
 
     [Inject]
-    NavigationManager NavigationManager { get; set; }
+    NavigationManager? NavigationManager { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,78 +96,122 @@ else
 
     }
 
+
     public async Task EditItem(Item item)
     {
-        NavigationManager.NavigateTo($"/edititem/{item.Id}");
+        await Task.Yield();
+        if (NavigationManager != null)
+        {
+            NavigationManager.NavigateTo($"/edititem/{item.Id}");
+        }
     }
+
+
+
+
     public async Task DeleteItem(Item item)
     {
         await ItemRepository.DeleteAsync(item);
-        items.Remove(item);
+        if (items != null)
+        {
+            items.Remove(item);
+        }
+
         StateHasChanged();
     }
- 
+
 }
 
 <style>
-    
-    
-    .button-edit {
-        background: #5E5DF0;
-        border-radius: 999px;
-        box-shadow: #5E5DF0 0 10px 20px -10px;
-        box-sizing: border-box;
-        color: #FFFFFF;
-        cursor: pointer;
-        font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 24px;
-        opacity: 1;
-        outline: 0 solid transparent;
-        padding: 8px 18px;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        width: fit-content;
-        word-break: break-word;
-        border: 0;
+
+
+    .col {
+        width: 45%; /* Adjust the width as needed */
+        margin: 0 2.5%; /* Add some margin between columns */
+        float: left; /* Float the columns to make them side by side */
     }
-    
-    .button-delete {
-        background: #FF4742;
-        border: 1px solid #FF4742;
+
+    .item-box {
+        position: relative; /* Set the position to relative for absolute positioning of ID */
+        border: 1px solid #ccc; /* Add a border around each item */
+        border-radius: 2px; /* Add rounded corners */
+        padding: 10px; /* Add padding for spacing */
+        margin-bottom: 10px; /* Add some margin between items */
+        list-style-type: none; /* Remove bullets from list items */
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Arrange children vertically */
+        justify-content: space-between; /* Align items at the beginning and end of the container */
+        height: 100%; /* Ensure item box takes full height */
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+
+    .item-id {
+        position: absolute; /* Set the position to absolute for precise placement */
+        top: 5px; /* Adjust the distance from the top */
+        right: 5px; /* Adjust the distance from the right */
+    }
+
+    .item-content {
+        margin-bottom: 10px; /* Add some margin between content and buttons */
+    }
+
+
+
+    .button-4 {
+        appearance: none;
+        background-color: #FAFBFC;
+        border: 1px solid rgba(27, 31, 35, 0.15);
         border-radius: 6px;
-        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
         box-sizing: border-box;
-        color: #FFFFFF;
+        color: #24292E;
         cursor: pointer;
         display: inline-block;
-        font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-        font-size: 16px;
-        font-weight: 800;
-        line-height: 16px;
-        min-height: 40px;
-        outline: 0;
-        padding: 12px 14px;
-        text-align: center;
-        text-rendering: geometricprecision;
-        text-transform: none;
+        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        list-style: none;
+        padding: 6px 16px;
+        position: relative;
+        transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
         vertical-align: middle;
+        white-space: nowrap;
+        word-wrap: break-word;
     }
 
-    .button-24:hover,
-    .button-24:active {
-        background-color: initial;
-        background-position: 0 0;
-        color: #FF4742;
-    }
+        .button-4:hover {
+            background-color: #F3F4F6;
+            text-decoration: none;
+            transition-duration: 0.1s;
+        }
 
-    .button-24:active {
-        opacity: .5;
-    }
+        .button-4:disabled {
+            background-color: #FAFBFC;
+            border-color: rgba(27, 31, 35, 0.15);
+            color: #959DA5;
+            cursor: default;
+        }
+
+        .button-4:active {
+            background-color: #EDEFF2;
+            box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+            transition: none 0s;
+        }
+
+        .button-4:focus {
+            outline: 1px transparent;
+        }
+
+        .button-4:before {
+            display: none;
+        }
+
+        .button-4:-webkit-details-marker {
+            display: none;
+        }
 
 </style>

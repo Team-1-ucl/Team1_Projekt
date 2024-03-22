@@ -27,7 +27,7 @@ else
 }
 
 @code {
-    Item item;
+    Item? item;
 
     [Parameter]
     public int Id { get; set; }
@@ -39,7 +39,11 @@ else
 
     private async Task SaveChanges()
     {
-        await ItemRepository.UpdateAsync(item);
+        if (item != null)
+        {
+            await ItemRepository.UpdateAsync(item);
+        }
+
         NavigationManager.NavigateTo("/items");
     }
 }
