@@ -25,8 +25,8 @@ namespace DogApp
                 .AddInteractiveWebAssemblyComponents();
 
             builder.Services.AddScoped<IItemRepo, ItemRepo>();
+            builder.Services.AddScoped<ITrackRepo, TrackRepo>();
             builder.Services.AddTransient<ItemController>();
-            
 
             builder.Services.AddRazorComponents()
                 .AddInteractiveWebAssemblyComponents();

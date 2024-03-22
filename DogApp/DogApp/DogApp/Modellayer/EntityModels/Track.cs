@@ -1,7 +1,7 @@
 ﻿using DogApp.Modellayer.EntityModels;
 using System.Collections.ObjectModel;
 
-namespace DogApp.Modellayer.Model;
+namespace DogApp.Modellayer.EntityModels;
 
 /// <summary>
 /// This class represents a Rally in an application. 
