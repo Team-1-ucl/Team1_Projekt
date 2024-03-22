@@ -1,4 +1,5 @@
 using DogApp.Components;
+using DogApp.Controller;
 using DogApp.Data;
 using DogApp.Modellayer.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,9 @@ namespace DogApp
                 .AddInteractiveWebAssemblyComponents();
 
             builder.Services.AddScoped<IItemRepo, ItemRepo>();
+            builder.Services.AddTransient<ItemController>();
+            
+
             builder.Services.AddRazorComponents()
                 .AddInteractiveWebAssemblyComponents();
 
