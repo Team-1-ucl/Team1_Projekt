@@ -131,7 +131,7 @@ namespace DogApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DogApp.Modellayer.Model.Track", b =>
+            modelBuilder.Entity("DogApp.Modellayer.EntityModels.Track", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,9 +156,35 @@ namespace DogApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tracks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Category A",
+                            Height = 100,
+                            Name = "Rally 1",
+                            Width = 200
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Category B",
+                            Height = 150,
+                            Name = "Rally 2",
+                            Width = 250
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Category C",
+                            Height = 120,
+                            Name = "Rally 3",
+                            Width = 180
+                        });
                 });
 
-            modelBuilder.Entity("DogApp.Modellayer.Model.TrackItem", b =>
+            modelBuilder.Entity("DogApp.Modellayer.EntityModels.TrackItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +216,7 @@ namespace DogApp.Migrations
                     b.ToTable("TrackItems");
                 });
 
-            modelBuilder.Entity("DogApp.Modellayer.Model.TrackItem", b =>
+            modelBuilder.Entity("DogApp.Modellayer.EntityModels.TrackItem", b =>
                 {
                     b.HasOne("DogApp.Modellayer.EntityModels.Item", null)
                         .WithMany("TrackItems")
@@ -198,7 +224,7 @@ namespace DogApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DogApp.Modellayer.Model.Track", null)
+                    b.HasOne("DogApp.Modellayer.EntityModels.Track", null)
                         .WithMany("TrackItems")
                         .HasForeignKey("Trackid")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -210,7 +236,7 @@ namespace DogApp.Migrations
                     b.Navigation("TrackItems");
                 });
 
-            modelBuilder.Entity("DogApp.Modellayer.Model.Track", b =>
+            modelBuilder.Entity("DogApp.Modellayer.EntityModels.Track", b =>
                 {
                     b.Navigation("TrackItems");
                 });

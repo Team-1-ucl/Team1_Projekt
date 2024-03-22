@@ -1,6 +1,6 @@
 ﻿using DogApp.Data;
 using DogApp.Modellayer.EntityModels;
-using DogApp.Modellayer.Model;
+
 using DogApp.Modellayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 
