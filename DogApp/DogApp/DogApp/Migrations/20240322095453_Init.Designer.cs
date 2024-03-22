@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240320095132_New")]
-    partial class New
+    [Migration("20240322095453_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,7 @@ namespace DogApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Track");
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("DogApp.Modellayer.Model.TrackItem", b =>

@@ -1,4 +1,5 @@
 using DogApp.Components;
+using DogApp.Controller;
 using DogApp.Data;
 using DogApp.Modellayer.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,8 @@ namespace DogApp
 
             builder.Services.AddScoped<IItemRepo, ItemRepo>();
             builder.Services.AddScoped<ITrackRepo, TrackRepo>();
+            builder.Services.AddTransient<ItemController>();
+
             builder.Services.AddRazorComponents()
                 .AddInteractiveWebAssemblyComponents();
 
