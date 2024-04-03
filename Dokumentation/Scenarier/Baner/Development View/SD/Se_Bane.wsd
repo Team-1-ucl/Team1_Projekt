@@ -1,0 +1,47 @@
+@startuml SeBane
+
+title \nSD\n  Se_bane
+skinparam SequenceGroupBorderThickness 0.01
+skinparam SequenceDividerBorderColor MediumPurple
+skinparam SequenceDividerBackgroundColor MediumPurple
+skinparam SequenceGroupBodyBackgroundColor MOTIVATION
+skinparam SequenceGroupFontColor DarkOrchid
+skinparam SequenceGroupBackgroundColor Thistle
+skinparam SequenceLifeLineBackgroundColor Thistle
+skinparam SequenceLifeLineBorderColor Thistle
+skinparam Style strictUML
+
+actor User
+participant "View" as UI
+participant "API" as Ap
+participant "Track Service" as Ts
+participant "Track Repository" as Tr
+participant "DataContext" as Dc
+
+database "Database" as Db
+
+User -> UI : **GetTrack**(**TrackID : int**)
+activate UI
+UI -> Ap : **GetTrack**(**TrackID : int**)
+activate Ap
+Ap -> Ts : **GetTrackByIdAsync**(**TrackID : int**)
+activate Ts
+Ts -> Tr : **GetTrackByIdAsync**(**TrackID : int**)
+activate Tr
+Tr -> Dc : **GetByIdAsync**(**int id**)
+activate Dc
+Dc -> Db
+activate Db
+Db -->Dc : Track Found
+Dc -->Tr : Track Found
+Tr-->Ts : Track Found
+Ts-->Ap : Track Found
+Ap->Ap : Add(new SimpleTrackDTO(track.Name);
+Ap--> UI : return Ok(trackDto);
+UI --> User : Track
+
+
+
+
+
+@enduml
