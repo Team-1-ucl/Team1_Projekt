@@ -13,47 +13,46 @@ skinparam Style strictUML
 
 actor User
 participant "View" as UI
-participant "Rally Controller" as RallyCon
-participant "Rally Repository" as RallyRepo
+participant "API" as TrackCon
+participant "Track Service" as TrackServ
+participant "Track Repository" as TrackRepo
+participant "Data" as Data
 
-
-database "Database" as DB
-
-User -> UI : View Rally
+User -> UI : View Track
 activate UI
-UI -> RallyCon : **GetRally(**RallyID : int**)**
-activate RallyCon
-RallyCon -> RallyRepo : **GetItemListWithRallyId(**RallyId : int**)**
-activate RallyRepo
+UI -> TrackCon : **GetRally(**RallyID : int**)**
+activate TrackCon
+TrackCon -> TrackRepo : **GetItemListWithRallyId(**RallyId : int**)**
+activate TrackRepo
 alt ID Request in DB
-RallyRepo -> DB : **GetRallyById(**RallyID : int**)**
+TrackRepo -> DB : **GetRallyById(**RallyID : int**)**
 activate DB
 else No Id in Database
-DB --> RallyRepo : ID not found
-activate RallyRepo #PaleVioletRed
-RallyRepo --> RallyCon : Error
-deactivate RallyRepo 
-activate RallyCon #PaleVioletRed
-RallyCon --> UI : Error
-deactivate RallyCon
+DB --> TrackRepo : ID not found
+activate TrackRepo #PaleVioletRed
+RallyRepo --> TrackCon : Error
+deactivate TrackRepo 
+activate TrackCon #PaleVioletRed
+TrackCon --> UI : Error
+deactivate TrackCon
 else Id found
-RallyRepo <-- DB : Rally Data 
-destroy DB
-activate RallyRepo #PaleVioletRed
+TrackRepo <-- 
+destroy 
+activate TrackRepo #PaleVioletRed
 end
-RallyRepo -> RallyRepo : Rally Object Generated
-RallyRepo --> RallyCon : Rally Object
-RallyCon --> UI : Rally Object
+TrackRepo -> TrackRepo : Rally Object Generated
+TrackRepo --> TrackCon : Rally Object
+TrackCon --> UI : Rally Object
 
 User -> UI : Delete Rally
-UI ->RallyCon : DeleteRally(RallyID : int)
-RallyCon -> RallyRepo : DeleteRally(RallyID : int)
-RallyRepo -> DB : DeleteRally(RallyID : int)
+UI ->TrackCon : DeleteRally(RallyID : int)
+TrackCon -> TrackRepo : DeleteRally(RallyID : int)
+TrackRepo -> DB : DeleteRally(RallyID : int)
 activate DB
-DB->DB : Rally Object Delteted
-DB --> RallyRepo : Deletion confirmed
-RallyRepo -->RallyCon : Deletion confirmed
-RallyCon --> UI : Deletion confirmed
-deactivate RallyRepo
-deactivate RallyRepo
+
+
+TrackRepo -->TrackCon : Deletion confirmed
+TrackCon --> UI : Deletion confirmed
+deactivate TrackRepo
+deactivate TrackRepo
 @enduml
