@@ -1,6 +1,6 @@
 @startuml SeBane
 
-title \nSD\n  Se_bane
+title \nSD\n  Read_Track
 skinparam SequenceGroupBorderThickness 0.01
 skinparam SequenceDividerBorderColor MediumPurple
 skinparam SequenceDividerBackgroundColor MediumPurple
@@ -32,16 +32,24 @@ Tr -> Dc : **GetByIdAsync**(**int id**)
 activate Dc
 Dc -> Db
 activate Db
+Db --> Dc : ID not found
+Dc --> Tr : Error
+Tr --> Ts : Error
+Ts --> Ap : Error
+Ap --> UI : Error
+UI --> User : TrackID not found
 Db -->Dc : Track Found
+deactivate Db
 Dc -->Tr : Track Found
+deactivate Dc
 Tr-->Ts : Track Found
+deactivate Tr
 Ts-->Ap : Track Found
-Ap->Ap : Add(new SimpleTrackDTO(track.Name);
-Ap--> UI : return Ok(trackDto);
+deactivate Ts
+Ap->Ap : Add(new SimpleTrackDTO(track.Name)
+Ap--> UI : Return Ok(trackDto)
+deactivate Ap
+
 UI --> User : Track
-
-
-
-
 
 @enduml
