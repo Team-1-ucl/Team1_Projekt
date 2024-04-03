@@ -2,7 +2,7 @@
 ## UC Opdater Bane
 |OC|OC_OpdaterBane
 |----|----|
-|Operation|UpdateRally( RallyID : int ).
-Cross-Reference| SD_OpdaterBane.
-Preconditions| RallyItem exists, RallyTrackItem exists.
-Post-Conditions| A rally track was updated (attribute value was changed)
+|Operation|Update track( TrackID : int ).
+Cross-Reference| SSD_OpdaterBane.
+Preconditions| TrackItem exists, item exists.
+Post-Conditions| A track was updated (attribute value was changed)

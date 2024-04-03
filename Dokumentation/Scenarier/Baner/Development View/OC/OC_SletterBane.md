@@ -2,8 +2,8 @@
 ## UC Sletter Bane
 |OC|OC_SletterBane
 |----|----|
-|Operation|DeleteRally(Rally ID : integer)
-Cross-Reference| SD_SletterBane.
-Preconditions| RallyTrack ID exists.
-Post-Conditions| A rally track instance was deleted.
-OutPut | Rally track does'nt show in track list.
+|Operation|Delete track(TrackID : int)
+Cross-Reference| SSD_SletterBane.
+Preconditions| TrackID exists.
+Post-Conditions| A track instance was deleted.
+OutPut | Track does'nt show in track list.
